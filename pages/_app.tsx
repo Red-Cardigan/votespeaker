@@ -6,7 +6,7 @@ import { AppProps } from 'next/app';
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <div className="App">
-      <div className="page-header">
+      <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between' }}>
         <h1>VoteSpeaker AI</h1>
         <a href="https://www.campaignlab.uk/" target="_blank" rel="noopener noreferrer">A CampaignLab Project</a>
       </div>

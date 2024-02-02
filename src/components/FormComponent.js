@@ -62,20 +62,22 @@ const FormComponent = () => {
       <div className="container-header">
         LLMs like it when you're clear and specific
       </div>
-      <form onSubmit={handleSubmit}>
-        <ContentTypeDropdown onContentTypeChange={handleContentTypeChange} />
-        <AudienceDropdown onAudienceChange={handleAudienceChange} />
-        <DescriptionTextArea description={description} setDescription={handleDescriptionChange} />
-        <ToneTextArea onToneChange={handleToneChange} />
-        <button type="submit" className="submit-button">Write Text</button>
-      </form>
-      <div className="response-container">
-        <div className={`response-header ${isCopied ? 'copied' : ''}`} onClick={handleCopy}>
-          Response
-          <span className="copy-text">{isCopied ? 'Copied' : 'Copy'}</span>
-        </div>
-        <div className="response-body">
-          {responseText || <span className="placeholder-text">Your generated text will appear here...</span>}
+      <div className="subcontainer">
+        <form onSubmit={handleSubmit}>
+          <ContentTypeDropdown onContentTypeChange={handleContentTypeChange} />
+          <AudienceDropdown onAudienceChange={handleAudienceChange} />
+          <DescriptionTextArea description={description} setDescription={handleDescriptionChange} />
+          <ToneTextArea onToneChange={handleToneChange} />
+          <button type="submit" className="submit-button">Write Text</button>
+        </form>
+        <div className="response-container">
+          <div className={`response-header ${isCopied ? 'copied' : ''}`} onClick={handleCopy}>
+            Response
+            <span className="copy-text">{isCopied ? 'Copied' : 'Copy'}</span>
+          </div>
+          <div className="response-body">
+            {responseText || <span className="placeholder-text">Your generated text will appear here...</span>}
+          </div>
         </div>
       </div>
     </div>

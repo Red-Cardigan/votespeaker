@@ -44,14 +44,10 @@ body {
   font-size: 30px;
   margin: auto;
   text-align: center;
-  /* background: #880a1b; */
   background: linear-gradient(to bottom, #a1252e, #a63443); /* Gradient from top-left to bottom-right */
   padding: 40px;
-  /* border-top-left-radius: 12px; */
-  /* border-top-right-radius: 12px; */
   box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 40px;
-  /* animation: pulseShadow 7s infinite ease-in-out; */
 }
 
 .description-text {
@@ -267,4 +263,21 @@ h1 {
 
 .copy-button.copied {
   background-color: #28a745; /* Change to green after being clicked */
+}
+
+@media (max-width: 400px) { /* Adjust the max-width as needed for your breakpoint */
+  .response-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    white-space: nowrap; /* Prevents wrapping of text */
+  }
+
+  .subcontainer, .submit-button,
+  .response-header .submit-button,
+  .response-header .copy-button{ /* Assuming .write-text-button is the class for the 'Write Text' button */
+    width: 100%; /* Set the width to 100% of the parent container */
+    margin-top: 10px; /* Add space between the buttons */
+    margin-right: 0; /* Align with the header's padding */
+  }
 }
