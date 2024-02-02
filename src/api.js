@@ -1,5 +1,14 @@
 import OpenAI from "openai";
 
+import { Pool } from 'pg';
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+
 // const API_KEY = process.env.REACT_APP_OPENAI_API_KEY; // Ensure you have your API key set in your environment variables
 // const API_URL = 'https://api.openai.com/v1/chat/completions';
 const openai = new OpenAI({
@@ -19,12 +28,19 @@ const generateTextCopy = async (prompt) => {
       ],
     });
 
-    console.log(completion.choices[0].message.content);
-    return completion.choices[0].message.content;
+    const response = completion.choices[0].message.content;
 
-  } catch (error) {
-    console.error('Error generating text:', error);
-  }
+  // Insert prompt and response into the database
+  await pool.query(
+    'INSERT INTO prompts_responses(prompt, response, created_at) VALUES($1, $2, NOW())',
+    [prompt, response]
+  );
+
+  return response;
+
+} catch (error) {
+  console.error('Error generating text or inserting into database:', error);
+}
 };
 
 export default generateTextCopy;
