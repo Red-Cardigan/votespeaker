@@ -1,0 +1,258 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #EAF2EF; /* Darker red background */
+  color: white;
+  padding: 0 0;
+  margin: 0;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #a1252e;
+}
+
+.page-footer {
+  display: flex;
+  justify-content: center; /* Center content for footer, adjust as needed */
+  padding: 20px;
+  background-color: #a1252e;
+  color: white; /* Adjust color to match your design */
+  border-top: 1px solid #ddd; /* Optional: adds a line to top of footer */
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.page-header a {
+  text-decoration: none;
+  color: #ddd;
+  font-size: 18px;
+}
+
+.text-container {
+  max-width: 100%;
+  font-size: 30px;
+  margin: auto;
+  text-align: center;
+  /* background: #880a1b; */
+  background: linear-gradient(to bottom, #a1252e, #a63443); /* Gradient from top-left to bottom-right */
+  padding: 40px;
+  /* border-top-left-radius: 12px; */
+  /* border-top-right-radius: 12px; */
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+  /* animation: pulseShadow 7s infinite ease-in-out; */
+}
+
+.description-text {
+  display: block; /* Ensure it's displayed as a block */
+  margin-top: 8px; /* Space above the description text */
+  text-align: center;
+  color: white; /* Text color */
+  font-size: 16px; /* Text size */
+}
+
+@keyframes pulseShadow {
+  0% {
+    box-shadow: 0 0 80px rgba(0, 0, 0, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 160px rgba(0, 0, 0, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 80px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.container-header {
+  margin: -40px -40px 20px -40px;
+  padding: 15px 40px; 
+  background-color: #db1932; /* Adjust the background color as needed */
+  color: white; /* Text color */
+  display: flex;
+  border-top-left-radius: 24px; /* Match the border-radius of .container */
+  border-top-right-radius: 24px; /* Match the border-radius of .container */
+  font-size: 20px; /* Adjust the font size as needed */
+  box-sizing: border-box; /* Include padding in the width calculation */
+}
+
+.response-header {
+  justify-content: space-between;
+  align-items: center;
+
+
+}
+
+.container {
+  max-width: 800px;
+  font-size: 20px;
+  margin: auto;
+  background: #c4a38b;
+  padding: 40px;
+  border-radius: 24px;
+  margin-bottom: 80px;
+  /* border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px; */
+  /* box-shadow: 5 4px 8px rgba(0, 0, 0, 0.2); */
+  animation: pulseShadow 2s infinite ease-in-out;
+}
+
+.description-text-area label,
+.description-text-area textarea {
+  display: block; /* Makes the label and textarea appear on separate lines */
+  margin-bottom: 8px; /* Adds some space below each element */
+  font-size: 20px;
+}
+
+.tone-text-area-container label,
+.tone-text-area-container textarea {
+  display: block; /* Makes the label and textarea appear on separate lines */
+  margin-bottom: 8px; /* Adds some space below each element */
+  font-size: 20px;
+}
+
+h1 {
+  color: #ddd;
+  text-align: center;
+}
+
+.dropdown, .text-area {
+  width: 100%;
+  max-width: 100%; /* Prevents the text area from being wider than the container */
+  padding: 10px;
+  margin: 20px 0;
+  font-size: 20px;
+  display: block;
+  font-family: 'Roboto', sans-serif;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown {
+  cursor: pointer;
+}
+
+.dropdown:focus, .text-area:focus {
+  outline: 2px solid #17a2b8;
+}
+
+@keyframes darkBluePulse {
+  from {
+    background-color: #0056b3; /* Dark blue color */
+  }
+  to {
+    background-color: #007bff; /* Original blue color */
+  }
+}
+
+.submit-button:active {
+  background-color: #0056b3; /* Dark blue color when the button is clicked */
+  animation: darkBluePulse 1s forwards; /* Animation to revert to original blue */
+}
+
+.submit-button {
+  width: 40%;
+  margin-top: 10px;
+  font-size: 20px;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 12px;
+  display: block; /* Makes the label and textarea appear on separate lines */
+  margin-bottom: 8px; /* Adds some space below each element */
+  cursor: pointer;
+  float: left; /* Aligns the button to the left */
+  opacity: 1;
+}
+
+.button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  float: right;
+  font-weight: bold;
+  opacity: 1;
+}
+
+.button:hover {
+  background-color: #0056b3;
+  cursor: pointer;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.response-header {
+  margin: -20px -20px 20px -20px; /* Negative margins to offset the padding of the container */
+  padding: 10px 20px; /* Match horizontal padding with .response-container */
+  background-color: #007bff;
+  color: white;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box; /* Include padding in the width calculation */
+  cursor: pointer;
+}
+
+.response-header.copied {
+  background-color: #28a745; /* Change background color when copied */
+}
+
+.copy-text {
+  border-left: 1px solid lightgray; /* Add vertical line to the left of 'Copy' */
+  padding-left: 10px; /* Add some space to the left of 'Copy' */
+  margin-left: 10px; /* Add some space to the left of the vertical line */
+  height: 100%; /* Make sure it fills the height of the header */
+  display: flex; /* Use flexbox for vertical alignment */
+  align-items: center; /* Align text vertically */
+}
+
+.response-container {
+  margin-top: 80px;
+  background-color: #f0f0f0;
+  border-radius: 12px;
+  min-height: 150px;
+  color: black;
+  white-space: pre-wrap;
+  padding: 20px; /* Padding applied to all sides */
+  box-sizing: border-box; /* Include padding in the width calculation */
+}
+
+.copy-button {
+  float: right;
+  background-color: #007bff; /* Green background for the copy button */
+  color: white;
+  padding: 0px 5px;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-right: 20px; /* Align with the header's padding */
+}
+
+.response-container.empty {
+  height: 200px; /* Make it taller when empty */
+}
+
+.placeholder-text {
+  display: block; /* Ensure it's a block-level element */
+  padding: 20px; /* Add padding to position the placeholder text */
+  color: darkgray;
+}
+
+.copy-button.copied {
+  background-color: #28a745; /* Change to green after being clicked */
+}
