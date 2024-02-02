@@ -37,7 +37,7 @@ export default async function handler(req, res) {
     });
 
     await pool.query(
-      'INSERT INTO your_table_name(prompt, response) VALUES($1, $2)',
+      'INSERT INTO votespeaker(prompt, response, created_at) VALUES($1, $2, NOW())',
       [prompt, generatedText]
     );
 

@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 
 const handleFormSubmission = async (prompt) => {
   const response = await fetch('/api/generateText', {
