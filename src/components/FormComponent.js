@@ -46,8 +46,11 @@ const FormComponent = () => {
     try {
       const prompt = `Write a ${formData.contentType} for a ${formData.audience} to persuade them to ${formData.description}. Use a tone which is ${formData.tone}.`;
       const response = await handleFormSubmission(prompt);
-      alert('Form submitted successfully!');
-      setResponseText(response.trim()); // Updated this line to set the response text
+      if (response.generatedText) {
+        setResponseText(response.generatedText.trim()); // Update the state with the response
+      } else {
+        throw new Error('Invalid response from the server');
+      }
     } catch (error) {
       console.error('Error submitting form:', error);
       alert('Failed to submit form.');
@@ -56,7 +59,7 @@ const FormComponent = () => {
 
   return (
     <div className="container">
-      <div class="container-header">
+      <div className="container-header">
         LLMs like it when you're clear and specific
       </div>
       <form onSubmit={handleSubmit}>
@@ -64,7 +67,7 @@ const FormComponent = () => {
         <AudienceDropdown onAudienceChange={handleAudienceChange} />
         <DescriptionTextArea description={description} setDescription={handleDescriptionChange} />
         <ToneTextArea onToneChange={handleToneChange} />
-        <button type="submit" className="submit-button">Submit</button>
+        <button type="submit" className="submit-button">Write Text</button>
       </form>
       <div className="response-container">
         <div className={`response-header ${isCopied ? 'copied' : ''}`} onClick={handleCopy}>
