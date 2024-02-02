@@ -33,6 +33,12 @@ body {
   font-size: 18px;
 }
 
+.page-footer a {
+  text-decoration: none;
+  color: #ddd;
+  font-size: 18px;
+}
+
 .text-container {
   max-width: 100%;
   font-size: 30px;
@@ -83,8 +89,6 @@ body {
 .response-header {
   justify-content: space-between;
   align-items: center;
-
-
 }
 
 .container {
@@ -142,18 +146,19 @@ h1 {
   outline: 2px solid #17a2b8;
 }
 
-@keyframes darkBluePulse {
-  from {
-    background-color: #0056b3; /* Dark blue color */
-  }
-  to {
-    background-color: #007bff; /* Original blue color */
-  }
-}
 
 .submit-button:active {
   background-color: #0056b3; /* Dark blue color when the button is clicked */
-  animation: darkBluePulse 1s forwards; /* Animation to revert to original blue */
+  animation: darkBluePulse 2s forwards; /* Animation to revert to original blue */
+}
+
+@keyframes darkBluePulse {
+  0% {
+    background-color: #0056b3; /* Dark blue color */
+  }
+  100% {
+    background-color: #0056b3; /* Keep dark blue color for the duration */
+  }
 }
 
 .submit-button {
@@ -245,12 +250,20 @@ h1 {
 
 .response-container.empty {
   height: 200px; /* Make it taller when empty */
+  justify-content: right;
+}
+
+.response-body {
+  justify-content: center;
+  height: 300px;
 }
 
 .placeholder-text {
   display: block; /* Ensure it's a block-level element */
-  padding: 20px; /* Add padding to position the placeholder text */
+  align-items: top;
+  padding: 20px;
   color: darkgray;
+  height: 100%;
 }
 
 .copy-button.copied {
