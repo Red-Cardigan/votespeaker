@@ -11,10 +11,10 @@ const ContentTypeDropdown = ({ onContentTypeChange }) => {
         onChange={(e) => onContentTypeChange(e.target.value)}
       >
         <option value="">Select Type of Content</option>
-        <option value="letter">Letter</option>
+        <option value="personalised letter">Personalised Letter</option>
         <option value="leaflet">Leaflet</option>
-        <option value="socialMediaPost">Social Media Post</option>
-        <option value="keyLines">Set of Key Lines</option>
+        <option value="social media Post">Social Media Post</option>
+        <option value="set of key lines">Set of Key Lines</option>
         <option value="speech">Speech</option>
         <option value="arguments">Set of Arguments</option>
       </select>

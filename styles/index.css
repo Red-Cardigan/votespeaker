@@ -111,7 +111,8 @@ body {
 .tone-text-area-container label,
 .tone-text-area-container textarea {
   display: block; /* Makes the label and textarea appear on separate lines */
-  margin-bottom: 8px; /* Adds some space below each element */
+  margin-top: 20px;
+  margin-bottom: 8px;
   font-size: 20px;
 }
 
@@ -142,19 +143,38 @@ h1 {
   outline: 2px solid #17a2b8;
 }
 
+.tone-label {
+  background-color: #007bff; /* Base blue color for tone buttons */
+  color: white;
+  padding: 5px 10px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease; /* Smooth transition for background color change */
+}
+
+.max-selection-note {
+  font-size: 15px; /* Smaller font size */
+  margin-top: 15px; /* Add some space above the text */
+}
+
+.tone-label:hover {
+  background-color: #0056b3; /* Slightly darker blue on hover */
+}
+
+.tone-label:focus {
+  background-color: #007bff; /* Or any other color you prefer for the focused state */
+}
+
+.tone-label.selected {
+  background-color: #63a4ff; /* Lighter blue for selected tones */
+}
 
 .submit-button:active {
   background-color: #0056b3; /* Dark blue color when the button is clicked */
   animation: darkBluePulse 2s forwards; /* Animation to revert to original blue */
-}
-
-@keyframes darkBluePulse {
-  0% {
-    background-color: #0056b3; /* Dark blue color */
-  }
-  100% {
-    background-color: #0056b3; /* Keep dark blue color for the duration */
-  }
 }
 
 .submit-button {

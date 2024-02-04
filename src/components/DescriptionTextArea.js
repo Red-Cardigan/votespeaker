@@ -3,7 +3,7 @@ import React from 'react';
 const DescriptionTextArea = ({ description, setDescription }) => {
   return (
     <div className="description-text-area">
-      <label htmlFor="description">To persuade them to...</label>
+      <label htmlFor="description">Include the following details:</label>
       <textarea
         id="description"
         name="description"
@@ -11,7 +11,7 @@ const DescriptionTextArea = ({ description, setDescription }) => {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         rows="4"
-        placeholder="Encourage their friends to vote for Labour..."
+        placeholder="Add specific details about the person or audience"
       ></textarea>
     </div>
   );

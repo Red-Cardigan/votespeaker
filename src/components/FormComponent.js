@@ -2,22 +2,23 @@ import React, { useState } from 'react';
 import ContentTypeDropdown from './ContentTypeDropdown';
 import AudienceDropdown from './AudienceDropdown';
 import DescriptionTextArea from './DescriptionTextArea';
-import ToneTextArea from './ToneTextArea';
+// import ToneSelectArea from './ToneSelectArea';
 import handleFormSubmission from '../apiHandler';
+import ToneTextArea from './ToneSelectArea';
 
 const FormComponent = () => {
   const [contentType, setContentType] = useState('');
-  const [audience, setAudience] = useState('');
+  const [demographic, setAudience] = useState('');
   const [description, setDescription] = useState('');
-  const [tone, setTone] = useState('');
   const [responseText, setResponseText] = useState(''); // Added this line
   const [isCopied, setIsCopied] = useState(false); // Added this line
+  const [selectedTones, setSelectedTones] = useState([]);
 
   const handleContentTypeChange = (value) => {
     setContentType(value);
   };
 
-  const handleAudienceChange = (value) => {
+  const handleDemographicChange = (value) => {
     setAudience(value);
   };
 
@@ -25,8 +26,8 @@ const FormComponent = () => {
     setDescription(value);
   };
 
-  const handleToneChange = (value) => {
-    setTone(value);
+  const handleToneChange = (selectedTones) => {
+    setSelectedTones(selectedTones);
   };
 
   const handleCopy = () => {
@@ -37,14 +38,20 @@ const FormComponent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const toneKeysSentence = `Be ${selectedTones.map(t => t.key.toLowerCase()).join(', ').replace(/, ([^,]*)$/, ', and $1')}.`;
+    const toneValuesSentence = selectedTones.map(t => t.value).join(' ');
+    const finalSentence = `${toneKeysSentence} ${toneValuesSentence}`;
+
     const formData = {
       contentType,
-      audience,
+      demographic,
       description,
-      tone,
+      tone: finalSentence,
     };
     try {
-      const prompt = `Write a ${formData.contentType} for a ${formData.audience} to persuade them to ${formData.description}. Use a tone which is ${formData.tone}.`;
+      const prompt = `You're an expert political ${formData.contentType} writer. Write a ${formData.contentType} for a member of the demographic "${formData.demographic}" to persuade them to vote for you in the upcoming election. \n\n${formData.tone}. \n\nInclude the following details:\n\n${formData.description}.`;
+      console.log(prompt)
       const response = await handleFormSubmission(prompt);
       if (response.generatedText) {
         setResponseText(response.generatedText.trim()); // Update the state with the response
@@ -65,9 +72,8 @@ const FormComponent = () => {
       <div className="subcontainer">
         <form onSubmit={handleSubmit}>
           <ContentTypeDropdown onContentTypeChange={handleContentTypeChange} />
-          <AudienceDropdown onAudienceChange={handleAudienceChange} />
+          <AudienceDropdown onDemographicChange={handleDemographicChange} onToneChange={handleToneChange}/>
           <DescriptionTextArea description={description} setDescription={handleDescriptionChange} />
-          <ToneTextArea onToneChange={handleToneChange} />
           <button type="submit" className="submit-button">Write Text</button>
         </form>
         <div className="response-container">
@@ -76,7 +82,7 @@ const FormComponent = () => {
             <span className="copy-text">{isCopied ? 'Copied' : 'Copy'}</span>
           </div>
           <div className="response-body">
-            {responseText || <span className="placeholder-text">Your generated text will appear here...</span>}
+            {responseText || <span className="placeholder-text">Your message will appear here...</span>}
           </div>
         </div>
       </div>
