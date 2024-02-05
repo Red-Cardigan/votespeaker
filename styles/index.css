@@ -17,7 +17,7 @@ body {
   display: flex;
   justify-content: center; /* Center content for footer, adjust as needed */
   padding: 20px;
-  background-color: #a1252e;
+  background-color: #a12f36;
   color: white; /* Adjust color to match your design */
   border-top: 1px solid #ddd; /* Optional: adds a line to top of footer */
 }
@@ -37,6 +37,7 @@ body {
   text-decoration: none;
   color: #ddd;
   font-size: 18px;
+  background: #a63443;
 }
 
 .text-container {
@@ -73,11 +74,11 @@ body {
 .container-header {
   margin: -40px -40px 20px -40px;
   padding: 15px 40px; 
-  background-color: #db1932; /* Adjust the background color as needed */
+  background-color: #c7122a; /* Adjust the background color as needed */
   color: white; /* Text color */
   display: flex;
-  border-top-left-radius: 24px; /* Match the border-radius of .container */
-  border-top-right-radius: 24px; /* Match the border-radius of .container */
+  border-top-left-radius: 18px; /* Match the border-radius of .container */
+  border-top-right-radius: 18px; /* Match the border-radius of .container */
   font-size: 20px; /* Adjust the font size as needed */
   box-sizing: border-box; /* Include padding in the width calculation */
 }
@@ -91,13 +92,10 @@ body {
   max-width: 800px;
   font-size: 20px;
   margin: auto;
-  background: #c4a38b;
+  background: rgb(201, 159, 137);
   padding: 40px;
-  border-radius: 24px;
+  border-radius: 21px;
   margin-bottom: 80px;
-  /* border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px; */
-  /* box-shadow: 5 4px 8px rgba(0, 0, 0, 0.2); */
   animation: pulseShadow 2s infinite ease-in-out;
 }
 

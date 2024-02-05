@@ -11,7 +11,7 @@ const DescriptionTextArea = ({ description, setDescription }) => {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         rows="4"
-        placeholder="Add specific details about the person or audience"
+        placeholder="Add details about your concerns and the audience"
       ></textarea>
     </div>
   );

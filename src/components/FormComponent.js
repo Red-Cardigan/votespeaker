@@ -50,8 +50,8 @@ const FormComponent = () => {
       tone: finalSentence,
     };
     try {
-      const prompt = `You're an expert political ${formData.contentType} writer. Write a ${formData.contentType} for a member of the demographic "${formData.demographic}" to persuade them to vote for you in the upcoming election. \n\n${formData.tone}. \n\nInclude the following details:\n\n${formData.description}.`;
-      console.log(prompt)
+      const detailsSection = formData.description ? `\n\nInclude the following details:\n\n${formData.description}.` : '';
+      const prompt = `You're an expert political ${formData.contentType} writer. Write a ${formData.contentType} for a member of the demographic "${formData.demographic}" to persuade them to vote for you in the upcoming election. \n\n${formData.tone}.${detailsSection}`;
       const response = await handleFormSubmission(prompt);
       if (response.generatedText) {
         setResponseText(response.generatedText.trim()); // Update the state with the response
