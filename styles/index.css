@@ -439,7 +439,7 @@ input:checked + .slider:before {
   margin: 80px auto; /* Adjust top margin as needed, auto for left and right margins centers it */
   background-color: #f0f0f0;
   border-radius: 12px;
-  min-height: 150px;
+  min-height: 350px;
   color: black;
   white-space: pre-wrap;
   padding: 0px;
