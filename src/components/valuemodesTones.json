@@ -1,0 +1,26 @@
+{
+  "Settler": {
+    "Tones": {
+      "Reassuring": "Provide a sense of security and stability, emphasizing the preservation of traditions and the safety of the community.",
+      "Respectful": "Honor their commitment to family values and traditional structures, showing understanding for their cautious approach to change.",
+      "Protective": "Highlight policies and measures aimed at enhancing security, protecting against crime, and ensuring a stable future for their families.",
+      "Nostalgic": "Invoke a sense of nostalgia for the 'good old days', reinforcing the importance of heritage and long-standing cultural practices."
+    }
+  },
+  "Prospector": {
+    "Tones": {
+      "Ambitious": "Appeal to their desire for success and recognition, showcasing opportunities for growth and achievement.",
+      "Trendy": "Highlight the latest trends and innovations, aligning your message with the newest ideas and fashionable concepts.",
+      "Optimistic": "Maintain a positive outlook on the future, focusing on the potential for personal and professional advancement.",
+      "Motivational": "Encourage them to seize opportunities for self-improvement and career development, emphasizing the rewards of ambition and hard work."
+    }
+  },
+  "Pioneer": {
+    "Tones": {
+      "Inspirational": "Inspire them with visions of change and progress, especially in areas of social justice, environmental sustainability, and global responsibility.",
+      "Intellectual": "Engage their curiosity and desire for knowledge, providing thought-provoking insights and exploring complex issues.",
+      "Ethical": "Appeal to their strong sense of morals and ethics, discussing fairness, justice, and equality in your policies and actions.",
+      "Innovative": "Emphasize creative solutions and new approaches to problems, highlighting your commitment to positive change and improvement."
+    }
+  }
+}

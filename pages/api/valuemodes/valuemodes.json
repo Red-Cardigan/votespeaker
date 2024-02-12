@@ -1,0 +1,11 @@
+{
+  "Settler": {
+    "description": "Love their family and home and caring for them, they tend to be at the centre of the family. Tradition and family structure are important to them. They prefer things to be 'normal' and are naturally conservative (with a small 'c'). They are very security conscious - wary of crime, violence and terrorism. They are supportive of tough punishment for criminals. They are also wary of change, especially for its own sake and are more comfortable with regular and routine situations. They are concerned about what the future holds."
+  },
+  "Prospector": {
+    "description": "Very success oriented and always wants to 'be the best' at what they are doing. They welcome opportunities to show her abilities and take great pleasure in recognition and reward. They often look to maximise opportunities and will take opportunities for advancement and professional networking. They like trends and are fashion conscious. They like new ideas and new ways and are generally optimistic about the future."
+  },
+  "Pioneer": {
+    "description": "Always trying to put things together and understand the big picture. They are concerned about the environment, society, world poverty, etc. They are always looking for new questions and answers. They have a strong internal sense of what is right and what is wrong. They have a strong desire for fairness, justice and equality. They are self-assured and have a strong sense of self-agency. They are generally positive about change, if it seems worthwhile and are cautiously optimistic about the future."
+  }
+}

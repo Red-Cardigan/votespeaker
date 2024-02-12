@@ -59,6 +59,22 @@ body {
   font-size: 16px; /* Text size */
 }
 
+.text-input {
+  margin-top: 8px; /* Space above the description text */
+  text-align: left;
+  color: black; /* Text color */
+  font-size: 16px; /* Text size */
+  padding: 10px;
+  margin: 10px 10px 10px 0; /* Add right margin to create space between dropdowns */
+  font-size: 20px;
+  display: inline-block; /* Change to inline-block for margin to take effect */
+  font-family: 'Roboto', sans-serif;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 @keyframes pulseShadow {
   0% {
     box-shadow: 0 0 80px rgba(0, 0, 0, 0.2);
@@ -141,6 +157,91 @@ h1 {
   outline: 2px solid #17a2b8;
 }
 
+.form-group {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  margin-bottom: 20px; /* Add some space between each form group */
+}
+
+.personal-details {
+  border: 1px solid #ccc; /* Light grey border */
+  border-radius: 8px; /* Rounded corners for a beveled look */
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2); /* Inset shadow for an embedded look */
+  background-color: rgb(175, 138, 118);
+  padding: 20px; /* Space inside the container */
+  margin: 20px 0; /* Space outside the container */
+  display: flex;
+  flex-direction: row; /* Stack children vertically */
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.name-occupation-location-container {
+  flex-wrap: wrap; /* Allow items to wrap onto the next line if needed */
+  gap: 10px; /* Space between items */
+}
+
+.details-right {
+  display: flex;
+  flex-direction: row; /* Stack children vertically */
+  width: 66%; /* Adjust as needed */
+}
+
+.details-right .form-group {
+  margin-bottom: 20px; /* Add some space between each form group */
+  margin-right: 20px
+}
+
+.details-right .form-group label {
+  margin-right: 10px;
+  white-space: nowrap; /* Prevents the label from wrapping */
+}
+
+.details-right .form-group select {
+  width: auto; /* Adjust as needed */
+}
+
+/* Style for each form group to align label and input horizontally */
+.form-group {
+  display: flex;
+  flex: start; /* Align items to the start of the flex container */
+  gap: 10px; /* Adds space between the dropdowns */
+}
+
+.form-group label {
+  margin-right: 10px; /* Add some space between label and input */
+  width: 100px; /* Ensure all labels have the same width for alignment */
+}
+
+.form-group input {
+  flex-grow: 1; /* Input takes the remaining space */
+}
+
+.intention-dropdown {
+  padding: 10px;
+  margin: 10px 10px 0px 0; /* Add right margin to create space between dropdowns */
+  font-size: 20px;
+  flex: 1;
+  max-width: calc(100% - 5px);
+  display: inline-block; /* Change to inline-block for margin to take effect */
+  font-family: 'Roboto', sans-serif;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#voteIntention {
+  margin-right: 10px; /* Adds some space between the dropdowns if they are inline */
+  margin-bottom: 0;
+}
+
+/* Style for the intention scale dropdown, making it narrower */
+#intentionScale {
+  margin-top: 0px;
+  width: 40%; /* Adjust the width to make it narrower than #voteIntention */
+}
+
 .tone-label {
   background-color: #007bff; /* Base blue color for tone buttons */
   color: white;
@@ -170,6 +271,89 @@ h1 {
   background-color: #63a4ff; /* Lighter blue for selected tones */
 }
 
+.style-area {
+  margin-bottom: 20px; /* Add some space below the style area */
+  width: 100%;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.style-area .dropdown, .style-area .text-area {
+  width: 100%; /* Adjust width to leave space for the toggle switch */
+  display: inline-block; /* Allows elements to be inline */
+  vertical-align: middle; /* Aligns elements vertically in the middle */
+  height: 45px;
+  margin-top: 10px;
+}
+
+.style-area .switch {
+  display: inline-block; /* Allows the switch to be inline */
+  vertical-align: middle; /* Aligns the switch vertically in the middle */
+  margin-left: 10px; /* Adds some space between the dropdown/text-area and the switch */
+  width: 60px; /* Width of the switch */
+  height: 34px; /* Height of the switch */
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
 .submit-button:active {
   background-color: #0056b3; /* Dark blue color when the button is clicked */
   animation: darkBluePulse 2s forwards; /* Animation to revert to original blue */
@@ -178,6 +362,7 @@ h1 {
 .submit-button {
   width: 40%;
   margin-top: 10px;
+  margin-bottom: 0;
   font-size: 20px;
   background-color: #007bff;
   color: white;
@@ -185,7 +370,6 @@ h1 {
   border: none;
   border-radius: 12px;
   display: block; /* Makes the label and textarea appear on separate lines */
-  margin-bottom: 8px; /* Adds some space below each element */
   cursor: pointer;
   float: left; /* Aligns the button to the left */
   opacity: 1;
@@ -215,8 +399,8 @@ h1 {
 }
 
 .response-header {
-  margin: -20px -20px 20px -20px; /* Negative margins to offset the padding of the container */
-  padding: 10px 20px; /* Match horizontal padding with .response-container */
+  margin: 0px 0; /* Adjust top margin as needed, remove left and right margins */
+  padding: 10px 20px; /* Keep padding to match .response-container */
   background-color: #007bff;
   color: white;
   border-top-left-radius: 12px;
@@ -224,12 +408,22 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-sizing: border-box; /* Include padding in the width calculation */
+  box-sizing: border-box; /* Ensures padding is included in the width */
   cursor: pointer;
 }
 
 .response-header.copied {
   background-color: #28a745; /* Change background color when copied */
+}
+
+.copy-button {
+  float: right;
+  background-color: #007bff; /* Green background for the copy button */
+  color: white;
+  padding: 0px 5px;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-right: 20px; /* Align with the header's padding */
 }
 
 .copy-text {
@@ -242,24 +436,15 @@ h1 {
 }
 
 .response-container {
-  margin-top: 80px;
+  margin: 80px auto; /* Adjust top margin as needed, auto for left and right margins centers it */
   background-color: #f0f0f0;
   border-radius: 12px;
   min-height: 150px;
   color: black;
   white-space: pre-wrap;
-  padding: 20px; /* Padding applied to all sides */
+  padding: 0px;
   box-sizing: border-box; /* Include padding in the width calculation */
-}
-
-.copy-button {
-  float: right;
-  background-color: #007bff; /* Green background for the copy button */
-  color: white;
-  padding: 0px 5px;
-  border-radius: 12px;
-  cursor: pointer;
-  margin-right: 20px; /* Align with the header's padding */
+  /* Add a specific width or max-width here if needed to control the size */
 }
 
 .response-container.empty {

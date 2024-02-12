@@ -1,0 +1,58 @@
+{
+  "Progressive Activist": {
+    "Tones": {
+      "Passionate": "Emphasize shared values and pride in the nation's history, while addressing the need for unity and focusing on common goals.",
+      "Defensive": "Acknowledge the perceived exclusion and disrespect from the elite, emphasizing a respect for all viewpoints and a commitment to national interests.",
+      "Concerned": "Recognize the anxieties about national security and the desire for a stronger stance in international affairs, promising a pragmatic approach.",
+      "Inclusive": "Highlight efforts to combat inequality and ensure that every voice is heard, especially those that feel sidelined."
+    }
+  },
+  "Civic Pragmatist": {
+    "Tones": {
+      "Intellectual": "Engage their global perspective and commitment to fighting inequality with well-reasoned arguments and comprehensive plans.",
+      "Active": "Encourage their participation in shaping policies, valuing their debates and contributions to social media discussions.",
+      "Informed": "Reflect their broad news consumption by presenting detailed, nuanced positions that align with their sophisticated understanding of issues.",
+      "Progressive": "Appeal to their support for Labour and the Greens with forward-thinking, environmentally conscious policies."
+    }
+  },
+  "Disengaged Battlers": {
+    "Tones": {
+      "Empathetic": "Show understanding for their exhaustion with political division, offering a vision of unity and community-focused solutions.",
+      "Supportive": "Praise their commitment to civic values and charity, proposing policies that reinforce community support and engagement.",
+      "Neutral": "Provide balanced, non-partisan information that respects their desire for consensus and compromise in politics.",
+      "Reassuring": "Offer comfort by addressing their concerns directly, presenting clear, achievable plans to improve societal cohesion."
+    }
+  },
+  "Established Liberals": {
+    "Tones": {
+      "Confident": "Match their comfort and trust in institutions with assurances that their voices are heard and valued in the political process.",
+      "Collaborative": "Speak to their belief in collective action and compromise, emphasizing policies that promote cooperation and mutual respect.",
+      "Global": "Reflect their global outlook and appreciation for diversity with policies that enhance international cooperation and cultural exchange.",
+      "Educated": "Appeal to their intellect and informed status with in-depth analyses and policy proposals that stimulate thoughtful discussion."
+    }
+  },
+  "Loyal National": {
+    "Tones": {
+      "Patriotic": "Reinforce their pride and patriotism with messages that celebrate the nation's achievements and address their concerns for its future.",
+      "Protective": "Acknowledge their fears regarding national security and social change, promising measures to safeguard the country's interests.",
+      "Respectful": "Recognize their frustrations with being overlooked by decision-makers, committing to policies that reflect their views and values.",
+      "Solidarity": "Stress the importance of unity and collective effort to address inequalities and ensure a prosperous future for all."
+    }
+  },
+  "Disengaged Traditionalists": {
+    "Tones": {
+      "Relatable": "Acknowledge the hardships of their daily lives with messages that address their struggles and offer practical support.",
+      "Simplistic": "Keep communications straightforward and jargon-free, focusing on how policies will directly impact their lives for the better.",
+      "Supportive": "Show empathy for their feelings of disconnection and disenchantment, offering solutions to bring them closer to their community and the political process.",
+      "Reassuring": "Provide a sense of hope and optimism, emphasizing that their concerns are being addressed and that they are not alone in facing challenges."
+    }
+  },
+  "Backbone Conservatives": {
+    "Tones": {
+      "Traditional": "Echo their nostalgia and pride in Britain's heritage, aligning policies with the values of tradition and stability.",
+      "Confident": "Reflect their optimism about the country's direction, presenting a vision that resonates with their positive outlook.",
+      "Patriotic": "Reinforce their national pride with commitments to uphold and celebrate Britain's status and achievements on the global stage.",
+      "Principled": "Address their political and social views with clear, conservative policies that prioritize national interest, security, and economic stability."
+    }
+  }
+}

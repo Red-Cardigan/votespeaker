@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import toneDescriptions from './toneDescriptions.json'; // Adjust the path as necessary
 import PropTypes from 'prop-types';
 
 const ToneTextArea = ({ currentLabel, onToneChange }) => {
@@ -7,9 +6,47 @@ const ToneTextArea = ({ currentLabel, onToneChange }) => {
   const [toneDescriptionsState, setToneDescriptionsState] = useState({});
 
   useEffect(() => {
-    const labelTones = toneDescriptions[currentLabel] ? toneDescriptions[currentLabel][0] : {};
-    setToneDescriptionsState(labelTones);
-    setSelectedTones([]); // Reset selected tones when label changes
+    // Split the currentLabel to extract the demographic system and the category
+    const [demographicSystem, category] = currentLabel.split(':');
+
+    // Determine the file name based on the demographic system
+    let fileName;
+    switch (demographicSystem) {
+      case 'Mosaic':
+        fileName = 'toneDescriptions.json';
+        break;
+      case 'ValueModes':
+        fileName = 'valuemodesTones.json';
+        break;
+      case 'MoreInCommon':
+        fileName = 'moreincommonTones.json';
+        break;
+      default:
+        console.log(`No matching file for demographic system: ${demographicSystem}`);
+        return;
+    }
+
+    // Dynamically import the JSON file based on the demographic system
+    import(`./${fileName}`)
+      .then((module) => {
+        // Handle different JSON structures
+        let labelTones = {};
+        if (demographicSystem === 'Mosaic') {
+          labelTones = module.default[category] ? module.default[category][0] : {};
+        } else if (demographicSystem === 'ValueModes') {
+          labelTones = module.default[category] ? module.default[category].Tones : {};
+        } else if (demographicSystem === 'MoreInCommon') {
+          // Assuming a similar structure to ValueModes for demonstration
+          labelTones = module.default[category] ? module.default[category].Tones : {};
+        }
+        setToneDescriptionsState(labelTones);
+        setSelectedTones([]); // Reset selected tones when label changes
+      })
+      .catch((error) => {
+        console.error(`Failed to load ${fileName}`, error);
+        setToneDescriptionsState({});
+      });
+
   }, [currentLabel]);
 
   const handleToneClick = (tone) => {
