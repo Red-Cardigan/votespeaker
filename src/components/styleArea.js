@@ -14,7 +14,14 @@ const StyleArea = ({ style, setStyle }) => {
   ];
 
   const handleStyleChange = (e) => {
-    setStyle(e.target.value);
+    if (inputMethod === 'dropdown') {
+      // For dropdown, use the selected option's text as the style
+      const selectedText = e.target.options[e.target.selectedIndex].text;
+      setStyle(selectedText);
+    } else {
+      // For freeText, the value is directly used
+      setStyle(e.target.value);
+    }
   };
 
   const toggleInputMethod = () => {
@@ -28,7 +35,7 @@ const StyleArea = ({ style, setStyle }) => {
   };
 
   return (
-    <div className="style-area">
+    <div className="style-area style-select-area">
       <div>
         <label htmlFor="style-select">In the style of:</label>
         <label className="switch" style={{ display: 'inline-block', marginLeft: '10px' }}>
@@ -49,7 +56,7 @@ const StyleArea = ({ style, setStyle }) => {
               onChange={handleStyleChange}
             >
               {predefinedStyles.map((option) => (
-                <option key={option.value} value={option.value}>{option.label}</option>
+                <option key={option.value} value={option.label}>{option.label}</option>
               ))}
             </select>
         </>

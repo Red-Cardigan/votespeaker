@@ -71,7 +71,8 @@ const FormComponent = () => {
     };
     try {
       const detailsSection = formData.description ? `\n\n${formData.description}.` : '';
-      const prompt = `You're an expert writer of persuasive letters, and candidate for local Labour MP. Write a persuasive letter ${nameOccupationLocation}${formData.voteIntention} in the style of ${formData.style} to persuade them to vote for you in the upcoming election. Use their demographic category ${formData.demographic}. \n\n${formData.tone}${detailsSection}`;
+      const prompt = `You're an expert writer of persuasive letters, and candidate for local Labour MP. Write a clear and convincing letter in British English ${nameOccupationLocation}${formData.voteIntention} in the style of ${formData.style}, to persuade them to vote for you in the upcoming election.\n\n${formData.tone}\n\nWhere relevant, explain how your policies align with their values. Your policies:\n${detailsSection}`;
+      // Use elements from their broad demographic category "${formData.demographic}" 
       console.log(prompt)
       const response = await handleFormSubmission(prompt);
       if (response.generatedText) {

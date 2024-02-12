@@ -119,6 +119,7 @@ body {
 .description-text-area textarea {
   display: block; /* Makes the label and textarea appear on separate lines */
   margin-bottom: 8px; /* Adds some space below each element */
+  margin-top: 20px;
   font-size: 20px;
 }
 
@@ -157,12 +158,6 @@ h1 {
   outline: 2px solid #17a2b8;
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column; /* Stack elements vertically */
-  margin-bottom: 20px; /* Add some space between each form group */
-}
-
 .personal-details {
   border: 1px solid #ccc; /* Light grey border */
   border-radius: 8px; /* Rounded corners for a beveled look */
@@ -171,7 +166,7 @@ h1 {
   padding: 20px; /* Space inside the container */
   margin: 20px 0; /* Space outside the container */
   display: flex;
-  flex-direction: row; /* Stack children vertically */
+  flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
 }
@@ -201,11 +196,12 @@ h1 {
   width: auto; /* Adjust as needed */
 }
 
-/* Style for each form group to align label and input horizontally */
 .form-group {
   display: flex;
   flex: start; /* Align items to the start of the flex container */
+  flex-direction: column; /* Stack elements vertically */
   gap: 10px; /* Adds space between the dropdowns */
+  margin-bottom: 20px; /* Add some space between each form group */
 }
 
 .form-group label {
@@ -239,7 +235,7 @@ h1 {
 /* Style for the intention scale dropdown, making it narrower */
 #intentionScale {
   margin-top: 0px;
-  width: 40%; /* Adjust the width to make it narrower than #voteIntention */
+  width: 43%; /* Adjust the width to make it narrower than #voteIntention */
 }
 
 .tone-label {
@@ -399,17 +395,19 @@ input:checked + .slider:before {
 }
 
 .response-header {
-  margin: 0px 0; /* Adjust top margin as needed, remove left and right margins */
+  margin: 0 0 0 -2.6%; /* Adjust top margin as needed, remove left and right margins */
   padding: 10px 20px; /* Keep padding to match .response-container */
   background-color: #007bff;
   color: white;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
+  height: 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box; /* Ensures padding is included in the width */
   cursor: pointer;
+  width: 105.3%;
 }
 
 .response-header.copied {
@@ -436,16 +434,21 @@ input:checked + .slider:before {
 }
 
 .response-container {
-  margin: 80px auto; /* Adjust top margin as needed, auto for left and right margins centers it */
+  display: grid;
+  grid-template-columns: 20px auto 20px; /* Adjust the side spaces */
+  grid-template-rows: 60px auto 20px;
+  margin: 80px auto;
   margin-bottom: 0px;
   background-color: #f0f0f0;
   border-radius: 12px;
   min-height: 350px;
   color: black;
   white-space: pre-wrap;
-  padding: 0px;
-  box-sizing: border-box; /* Include padding in the width calculation */
-  /* Add a specific width or max-width here if needed to control the size */
+  box-sizing: border-box;
+}
+
+.response-container > * {
+  grid-column: 2 / 3;
 }
 
 .response-container.empty {
@@ -467,6 +470,34 @@ input:checked + .slider:before {
 
 .copy-button.copied {
   background-color: #28a745; /* Change to green after being clicked */
+}
+
+@media (max-width: 768px) {
+  .personal-details {
+    flex-direction: column;
+    align-items: center; /* Centers the items horizontally */
+  }
+  .details-right {
+    flex-direction: column;
+    margin-left: -60px;
+  }
+  .style-area {
+    display: block; /* Ensures .style-area is treated as a block-level element */
+    width: 130%; /* Ensures it takes the full width of its parent, forcing it onto a new line */
+    margin-top: 20px; /* Optional: Adds some space above .style-area for better spacing */
+  }
+  .switch {
+    display: inline; /* Allows the switch to be inline */
+    vertical-align: middle; /* Aligns the switch vertically in the middle */
+  }
+  .response-container {
+    margin-top: 100px;
+  }
+  .response-header {
+    margin: 0 0 0 -6.8%; /* Adjust top margin as needed, remove left and right margins */
+    padding: 10px 20px; /* Keep padding to match .response-container */
+    width: 113.7%;
+  }
 }
 
 @media (max-width: 400px) { /* Adjust the max-width as needed for your breakpoint */

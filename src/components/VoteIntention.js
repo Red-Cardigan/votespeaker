@@ -18,7 +18,7 @@ function VoteIntention({ onIntentionChange }) {
 
   return (
     <div>
-      <div className="form-group">
+      <div className="form-group voteintention">
         <label htmlFor="voterIntention">Vote Intention:</label>
         <select
           id="voteIntention"
@@ -52,7 +52,7 @@ function VoteIntention({ onIntentionChange }) {
               value={intentionScale}
               onChange={(e) => setIntentionScale(e.target.value)}
             >
-              <option value="">Select Scale</option>
+              <option value="">/10</option>
               {[...Array(10).keys()].map((number) => (
                 <option key={number + 1} value={number + 1}>
                   {number + 1}
