@@ -9,6 +9,15 @@ import NameOccupationLocation from './NameOccupationLocation';
 import StyleArea from './styleArea';
 
 const FormComponent = () => {
+  const [colorIndex, setColorIndex] = useState(0);
+  const partyInfo = [
+    { color: '#E4003B', emoji: '🌹', name: 'a Labour Candidate' },          // Labour: Vibrant Red
+    { color: '#004B87', emoji: '🌳', name: 'a Conservative' },              // Conservatives: Darker Blue, Tree emoji
+    { color: '#FAA61A', emoji: '🕊️', name: 'a Liberal Democrat' },         // LibDem: Orange, Dove emoji
+    { color: '#debe14', emoji: '🎗️', name: 'an SNP Candidate' },           // SNP: Muted Yellow, Ribbon emoji
+    { color: '#6AB023', emoji: '🌍', name: 'a Green Party Candidate' },     // Green Party: Green, Globe emoji
+    { color: '#12B6CF', emoji: '➡️', name: 'a Reform UK Candidate' }       // Reform UK: Light Blue, Right Arrow emoji
+  ];
   const [contentType, setContentType] = useState('');
   const [nameOccupationLocation, setNameOccupationLocation] = useState(''); // Updated variable name
   const [voteIntention, setIntention] = useState('');
@@ -18,6 +27,10 @@ const FormComponent = () => {
   const [responseText, setResponseText] = useState(''); 
   const [isCopied, setIsCopied] = useState(false); 
   const [selectedTones, setSelectedTones] = useState([]);
+
+  const handleHeaderClick = () => {
+    setColorIndex(prevIndex => (prevIndex + 1) % partyInfo.length); // Cycle through party info
+  };
 
   const handleContentTypeChange = (value) => {
     setContentType(value);
@@ -88,17 +101,20 @@ const FormComponent = () => {
 
   return (
     <div className="container">
-      <div className="container-header">
+      <div
+        className="container-header"
+        onClick={handleHeaderClick}
+        style={{ backgroundColor: partyInfo[colorIndex].color }} // Set the background color
+      >
         Write a personalised letter for...
+        <div className="party-name">I am {partyInfo[colorIndex].name} {partyInfo[colorIndex].emoji} </div>
       </div>
       <div className="subcontainer">
         <form onSubmit={handleSubmit}>
           {/* <ContentTypeDropdown onContentTypeChange={handleContentTypeChange} /> */}
           <div className="personal-details">
-            <div className="details-left">
+            <div className="form-row">
               <NameOccupationLocation onNameOccupationLocationChange={handleNameOccupationLocationChange} />
-            </div>
-            <div className="details-right">
               <VoteIntention onIntentionChange={handleIntentionChange}/>
               <StyleArea style={style} setStyle={setStyleText} />
             </div>

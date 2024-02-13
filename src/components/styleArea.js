@@ -67,9 +67,8 @@ const StyleArea = ({ style, setStyle }) => {
             value={style}
             onChange={handleStyleChange}
             rows="4"
-            placeholder="Type or paste your style here"
+            placeholder="Add a style"
           ></textarea>
-
         </>
       )}
     </div>

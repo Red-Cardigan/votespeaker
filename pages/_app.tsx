@@ -9,9 +9,11 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <h1>VoteSpeaker AI</h1>
-          <a href="https://www.wyza.uk" target="_blank" rel="noopener noreferrer" style={{ fontSize: 'small' }}>from Wyza</a>
+          <div className="link-container">
+            <a href="https://www.wyza.uk" target="_blank" rel="noopener noreferrer" style={{ fontSize: 'small' }}>from Wyza</a>
+          </div>
         </div>
-        <a href="https://www.campaignlab.uk/" target="_blank" rel="noopener noreferrer">Incubated by CampaignLab</a>
+        <a href="https://www.campaignlab.uk/" target="_blank" rel="noopener noreferrer" style={{ textAlign: 'right' }}>Incubated by CampaignLab</a>
       </div>
       <header className="App-header">
         <div className="text-container">
@@ -23,8 +25,8 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
         <FormComponent />
       </main>
-      <footer className="page-footer">
-        <a href="https://www.wyza.uk/">© 2024 VoteSpeaker</a>
+      <footer className="page-footer">Want to scale this up to your whole constituency?   
+        <a href="https://www.wyza.uk/" style={{ marginLeft: '10px'}}>    Get in touch</a>
       </footer>
     </div>
   );
