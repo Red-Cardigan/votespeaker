@@ -11,12 +11,12 @@ import StyleArea from './styleArea';
 const FormComponent = () => {
   const [colorIndex, setColorIndex] = useState(0);
   const partyInfo = [
-    { color: '#E4003B', emoji: '🌹', name: 'a Labour Candidate' },          // Labour: Vibrant Red
-    { color: '#004B87', emoji: '🌳', name: 'a Conservative' },              // Conservatives: Darker Blue, Tree emoji
-    { color: '#FAA61A', emoji: '🕊️', name: 'a Liberal Democrat' },         // LibDem: Orange, Dove emoji
-    { color: '#debe14', emoji: '🎗️', name: 'an SNP Candidate' },           // SNP: Muted Yellow, Ribbon emoji
-    { color: '#6AB023', emoji: '🌍', name: 'a Green Party Candidate' },     // Green Party: Green, Globe emoji
-    { color: '#12B6CF', emoji: '➡️', name: 'a Reform UK Candidate' }       // Reform UK: Light Blue, Right Arrow emoji
+    { color: '#E4003B', emoji: '🌹', name: 'a Labour Candidate', partyName: 'Labour' },          // Labour: Vibrant Red
+    { color: '#004B87', emoji: '🌳', name: 'a Conservative', partyName: 'Conservative' },              // Conservatives: Darker Blue, Tree emoji
+    { color: '#FAA61A', emoji: '🕊️', name: 'a Liberal Democrat', partyName: 'Liberal Democrat' },         // LibDem: Orange, Dove emoji
+    { color: '#debe14', emoji: '🎗️', name: 'an SNP Candidate', partyName: 'SNP' },           // SNP: Muted Yellow, Ribbon emoji
+    { color: '#6AB023', emoji: '🌍', name: 'a Green Party Candidate', partyName: 'Green Party' },     // Green Party: Green, Globe emoji
+    { color: '#12B6CF', emoji: '➡️', name: 'a Reform UK Candidate', partyName: 'Reform UK' }       // Reform UK: Light Blue, Right Arrow emoji
   ];
   const [contentType, setContentType] = useState('');
   const [nameOccupationLocation, setNameOccupationLocation] = useState(''); // Updated variable name
@@ -69,22 +69,32 @@ const FormComponent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const toneKeysSentence = `Be ${selectedTones.map(t => t.key.toLowerCase()).join(', ').replace(/, ([^,]*)$/, ', and $1')}.`;
+    const partyName = partyInfo[colorIndex].partyName;
+    const toneKeysSentence = `${selectedTones.map(t => t.key.toLowerCase()).join(', ').replace(/, ([^,]*)$/, ', and $1')}.`;
     const toneValuesSentence = selectedTones.map(t => t.value).join(' ');
     const finalSentence = `${toneKeysSentence} ${toneValuesSentence}`;
 
+    const action = voteIntention.includes(partyName) ?
+    "thank them, and encourage them to continue their support for the party by voting for you" :
+    "identify their key concerns and persuade them to support you and your party";
+
     const formData = {
+      partyName,
       contentType,
       nameOccupationLocation,
       voteIntention,
       demographic,
       description,
       style,
+      action,
       tone: finalSentence,
     };
     try {
       const detailsSection = formData.description ? `\n\n${formData.description}.` : '';
-      const prompt = `You're an expert writer of persuasive letters, and candidate for local Labour MP. Write a clear and convincing letter in British English ${nameOccupationLocation}${formData.voteIntention} in the style of ${formData.style}, to persuade them to vote for you in the upcoming election.\n\n${formData.tone}\n\nWhere relevant, explain how your policies align with their values. Your policies:\n${detailsSection}`;
+      let prompt = `You're the candidate for local ${formData.partyName} MP, who writes in the style of ${formData.style}. Write a letter ${nameOccupationLocation}${formData.voteIntention} to ${formData.action} in the upcoming election.\n\nUse an appropriate tone for their confidence rating, and be ${formData.tone}`;
+      if (detailsSection) {
+        prompt += `\n\nWhere relevant, explain how your policies align with their values. Your policies:${detailsSection}`;
+      }
       // Use elements from their broad demographic category "${formData.demographic}" 
       console.log(prompt)
       const response = await handleFormSubmission(prompt);

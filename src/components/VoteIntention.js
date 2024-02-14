@@ -9,7 +9,7 @@ function VoteIntention({ onIntentionChange }) {
   useEffect(() => {
     // Format the intention string
     const intentionString = voterIntention && intentionScale
-      ? `, who intends to vote ${voterIntention} with likelihood ${intentionScale}/10,`
+      ? `, who intends to vote ${voterIntention} with confidence ${intentionScale}/10`
       : '';
     // Call the callback function with the formatted intention string
     onIntentionChange(intentionString);
