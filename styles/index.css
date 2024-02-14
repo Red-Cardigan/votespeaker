@@ -37,6 +37,42 @@ body {
   font-size: 18px;
 }
 
+.policy-disclaimer {
+  font-size: small;
+  cursor: pointer;
+  text-decoration: underline;
+  align: block;
+}
+
+.policy-popup {
+  position: absolute;
+  right: 20px;
+  top: 100px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 1000;
+  max-width: 40%; /* Set the max width */
+  color: black; /* Set the text color to black */
+}
+
+.policy-close-button {
+  background-color: #007bff; /* Background color */
+  color: white; /* Text color */
+  border: none; /* No border */
+  padding: 10px 20px; /* Padding */
+  font-size: 16px; /* Font size */
+  cursor: pointer; /* Cursor on hover */
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.policy-close-button:hover {
+  background-color: #932e35; /* Darker shade on hover */
+}
+
 .page-footer a {
   text-decoration: none;
   color: #ddd;
