@@ -35,16 +35,17 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       )}
       <header className="App-header">
         <div className="text-container">
-          <h1 className="title-text">Draft messages to sway voters and bolster support.</h1>
-          <p className="description-text"></p>
+          <h1 className="title-text">Draft letters to sway voters and bolster support.</h1>
+          <p className="description-text">Enter a hypothetical voter's details below, then click 'Write Letter' to generate a personalised campaign letter.</p>
         </div>
       </header>
       <main>
         <Component {...pageProps} />
         <FormComponent />
       </main>
-      <footer className="page-footer">Interested in using data and AI in your campaigns?   
-        <a href="https://www.wyza.uk/" style={{ marginLeft: '10px'}}>    Get in touch</a>
+      <footer className="page-footer">
+        <div>Can I use my own database to write personalised letters to thousands of constituents?</div>   
+        <div><a href="https://www.wyza.uk/"> Yes. Find Out More</a></div>
       </footer>
     </div>
   );

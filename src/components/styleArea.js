@@ -37,15 +37,7 @@ const StyleArea = ({ style, setStyle }) => {
   return (
     <div className="style-area style-select-area">
       <div>
-        <label htmlFor="style-select">In the style of:</label>
-        <label className="switch" style={{ display: 'inline-block', marginLeft: '10px' }}>
-            <input
-              type="checkbox"
-              checked={inputMethod === 'freeText'}
-              onChange={toggleInputMethod}
-            />
-            <span className="slider round"></span>
-          </label>
+        <label htmlFor="style-select">Use this style:</label>
       </div>
       {inputMethod === 'dropdown' ? (
         <>
@@ -71,6 +63,15 @@ const StyleArea = ({ style, setStyle }) => {
           ></textarea>
         </>
       )}
+      <div className="switch-label">Add your own style:</div>
+      <label className="switch">
+        <input
+          type="checkbox"
+          checked={inputMethod === 'freeText'}
+          onChange={toggleInputMethod}
+        />
+        <span className="slider round"></span>
+      </label>
     </div>
   );
 };

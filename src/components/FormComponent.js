@@ -91,9 +91,9 @@ const FormComponent = () => {
     };
     try {
       const detailsSection = formData.description ? `\n\n${formData.description}.` : '';
-      let prompt = `You're the candidate for local ${formData.partyName} MP, who writes in the style of ${formData.style}. Write a letter ${nameOccupationLocation}${formData.voteIntention} to ${formData.action} in the upcoming election.\n\nUse an appropriate tone for their confidence rating, and be ${formData.tone}`;
+      let prompt = `You're the candidate for local ${formData.partyName} MP, writing in the style of ${formData.style}. Write a letter ${nameOccupationLocation}${formData.voteIntention} to ${formData.action} in the upcoming election.\n\nBe ${formData.tone}`;
       if (detailsSection) {
-        prompt += `\n\nWhere relevant, explain how your policies align with their values. Your policies:${detailsSection}`;
+        prompt += `\n\nWhere relevant, use details from your campaign which align with their values. Campaign details:${detailsSection}`;
       }
       // Use elements from their broad demographic category "${formData.demographic}" 
       console.log(prompt)
@@ -116,7 +116,7 @@ const FormComponent = () => {
         onClick={handleHeaderClick}
         style={{ backgroundColor: partyInfo[colorIndex].color }} // Set the background color
       >
-        Write a personalised letter for...
+        Dear...
         <div className="party-name">I am {partyInfo[colorIndex].name} {partyInfo[colorIndex].emoji} </div>
       </div>
       <div className="subcontainer">
@@ -139,7 +139,7 @@ const FormComponent = () => {
             <span className="copy-text">{isCopied ? 'Copied' : 'Copy'}</span>
           </div>
           <div className="response-body">
-            {responseText || <span className="placeholder-text">Your message will appear here...</span>}
+            {responseText || <span className="placeholder-text">Your personalised letter will appear here...</span>}
           </div>
         </div>
       </div>

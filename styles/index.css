@@ -19,12 +19,26 @@ body {
 
 .page-footer {
   display: flex;
-  justify-content: center; /* Center content for footer, adjust as needed */
+  flex-direction: column; /* Stack flex items vertically */
+  align-items: center; /* Center-align items horizontally */
+  justify-content: center; /* Center content vertically, adjust as needed */
   padding: 20px;
   background-color: #a12f36;
   color: white; /* Adjust color to match your design */
-  border-top: 1px solid #ddd; /* Optional: adds a line to top of footer */
+  height: 100px;
 }
+.page-footer a {
+  padding-top: 10px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 18px;
+  display: block;
+}
+
+.page-footer a:hover {
+  color: #dadada; /* Slightly darker blue on hover */
+}
+
 
 .page-header h1 {
   margin: 0;
@@ -71,13 +85,6 @@ body {
 
 .policy-close-button:hover {
   background-color: #932e35; /* Darker shade on hover */
-}
-
-.page-footer a {
-  text-decoration: none;
-  color: #ddd;
-  font-size: 18px;
-  background: #a63443;
 }
 
 .text-container {
@@ -276,14 +283,21 @@ h1 {
   box-sizing: border-box; /* Include padding and border in the element's width */
 }
 
-/* Adjust the switch to be aligned with the dropdowns/text areas */
-.style-area .switch {
-  display: inline-block; /* Allows the switch to be inline */
-  vertical-align: middle; /* Aligns the switch vertically in the middle */
+.style-area {
   margin-left: 10px; /* Adds some space between the dropdown/text-area and the switch */
-  margin-top: -10px;
+}
+/* Adjustments for the style-area and switch positioning */
+.style-area .switch-label {
+  display: block; /* Ensures the label takes up the full width */
+  margin-bottom: 5px; /* Adds some space above the switch */
+}
+
+.style-area .switch {
+  display: block; /* Changes the switch to block level, forcing it onto a new line */
+  margin: 0; /* Optionally center the switch */
   width: 60px; /* Width of the switch */
   height: 34px; /* Height of the switch */
+  position: relative;
 }
 
 .switch {

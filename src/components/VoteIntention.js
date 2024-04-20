@@ -6,20 +6,35 @@ function VoteIntention({ onIntentionChange }) {
 
   const showSecondDropdown = voterIntention !== 'WontSay' && voterIntention !== 'Undecided';
 
+  // Mapping scale values to confidence words
+  const confidenceWords = {
+    1: 'very uncertain',
+    2: 'mostly uncertain',
+    3: 'somewhat uncertain',
+    4: 'slightly uncertain',
+    5: 'neutral',
+    6: 'slightly confident',
+    7: 'somewhat confident',
+    8: 'mostly confident',
+    9: 'very confident',
+    10: 'extremely confident',
+  };
+
   useEffect(() => {
-    // Format the intention string
-    const intentionString = voterIntention && intentionScale
-      ? `, who intends to vote ${voterIntention} with confidence ${intentionScale}/10`
+    // Select the confidence word based on the intentionScale
+    const confidenceWord = intentionScale ? confidenceWords[intentionScale] : '';
+    // Format the intention string with the confidence word
+    const intentionString = voterIntention && confidenceWord
+      ? `, who intends to vote ${voterIntention} with confidence: ${confidenceWord}`
       : '';
     // Call the callback function with the formatted intention string
     onIntentionChange(intentionString);
   }, [voterIntention, intentionScale, onIntentionChange]);
 
-
   return (
     <div>
       <div className="form-group">
-        <label htmlFor="voterIntention">Vote Intention:</label>
+        <label htmlFor="voterIntention">Their Vote Intention:</label>
         <select
           id="voteIntention"
           value={voterIntention}
