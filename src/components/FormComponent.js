@@ -91,7 +91,7 @@ const FormComponent = () => {
     };
     try {
       const detailsSection = formData.description ? `\n\n${formData.description}.` : '';
-      let prompt = `You're the candidate for local ${formData.partyName} MP, writing in the style of ${formData.style}. Write a letter ${nameOccupationLocation}${formData.voteIntention} to ${formData.action} in the upcoming election.\n\nBe ${formData.tone}`;
+      let prompt = `You're the candidate for local ${formData.partyName} MP, writing in the style of ${formData.style}. Write a concise letter ${nameOccupationLocation}${formData.voteIntention} to ${formData.action} in the upcoming election.\n\nBe ${formData.tone}`;
       if (detailsSection) {
         prompt += `\n\nWhere relevant, use details from your campaign which align with their values. Campaign details:${detailsSection}`;
       }
