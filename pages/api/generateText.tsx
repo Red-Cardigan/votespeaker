@@ -1,6 +1,7 @@
 import { Pool } from 'pg';
 import OpenAI from 'openai';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { Transform } from 'stream';
 
 interface ErrorResponse {
   error: string;
@@ -28,60 +29,52 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ErrorResponse | SuccessResponse>
 ): Promise<void> {
-
-  if (req.method !== 'POST') {
+  if (req.method !== 'GET') {
     res.status(405).end('Method Not Allowed');
     return;
   }
 
-  const { prompt } = req.body;
+  const { prompt } = req.query;
 
-  if (!prompt) {
+  if (!prompt || typeof prompt !== 'string') {
     res.status(400).json({ error: 'No prompt provided' });
     return;
   }
 
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+
   try {
-    // Create a new thread for the request
     const thread = await openai.beta.threads.create();
-    const run = await openai.beta.threads.runs.createAndPoll(
-      thread.id,
-      { 
-        instructions: prompt,
-        assistant_id: process.env.ASSISTANT_ID,
-      }
-    );
 
-    // Check if the run completed successfully
-    if (run.status === 'completed') {
-      const messages = await openai.beta.threads.messages.list(run.thread_id);
-      const generatedText = messages.data
-      .reverse()
-      .map(message => {
-        // Assuming each message has a content array with at least one item
-        const firstContentBlock = message.content[0];
-        // Check if the content block is of type that includes text
-        if ('text' in firstContentBlock) {
-          return firstContentBlock.text.value;
-        }
-        return ''; // Return an empty string or some default value for non-text content blocks
+    const runStream = openai.beta.threads.runs.stream(thread.id, {
+      instructions: prompt,
+      assistant_id: process.env.ASSISTANT_ID,
+    });
+
+    runStream
+      .on('textCreated', (text) => {
+        // Send each piece of text as a separate SSE event
+        res.write(`data: ${JSON.stringify({ generatedText: text.value })}\n\n`);
+        console.log(text.value);
       })
-      .join('\n');
+      .on('textDelta', (textDelta) => {
+        // Optionally handle deltas; for simplicity, you might skip this
+      })
+      .on('end', () => {
+        // Close the connection once the stream ends
+        res.end();
+      })
+      .on('error', (error) => {
+        console.error('Error generating text:', error);
+        // It's tricky to send an error once headers are sent in SSE, so consider logging or other strategies
+        res.end();
+      });
 
-      if (process.env.NODE_ENV !== 'development' && pool) {
-        await pool.query(
-          'INSERT INTO votespeaker(prompt, response, created_at) VALUES($1, $2, NOW())',
-          [prompt, generatedText]
-        );
-      }
-
-      res.status(200).json({ generatedText });
-    } else {
-      console.log(run.status);
-      res.status(500).json({ error: 'Failed to generate text due to run status: ' + run.status });
-    }
   } catch (error) {
-    console.error('Error generating text:', error);
-    res.status(500).json({ error: 'Failed to generate text' });
+    console.error('Error setting up text generation:', error);
+    // Sending errors is difficult once streaming has started, so ensure error handling is robust before this point
+    res.end();
   }
 }

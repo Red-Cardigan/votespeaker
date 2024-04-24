@@ -75,8 +75,8 @@ const FormComponent = () => {
     const finalSentence = `${toneKeysSentence} ${toneValuesSentence}`;
 
     const action = voteIntention.includes(partyName) ?
-    "thank them, and encourage them to continue their support for the party by voting for you" :
-    "identify their key concerns and persuade them to support you and your party";
+    "thank them for their support, and invite them to encourage others in their community to vote for you" :
+    "persuade them to support you and your party";
 
     const formData = {
       partyName,
@@ -105,7 +105,6 @@ const FormComponent = () => {
       }
     } catch (error) {
       console.error('Error submitting form:', error);
-      alert('Failed to submit form.');
     }
   };
 
@@ -116,7 +115,6 @@ const FormComponent = () => {
         onClick={handleHeaderClick}
         style={{ backgroundColor: partyInfo[colorIndex].color }} // Set the background color
       >
-        Dear...
         <div className="party-name">I am {partyInfo[colorIndex].name} {partyInfo[colorIndex].emoji} </div>
       </div>
       <div className="subcontainer">

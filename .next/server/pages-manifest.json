@@ -1,6 +1,1 @@
-{
-  "/_app": "pages/_app.js",
-  "/_error": "pages/_error.js",
-  "/_document": "pages/_document.js",
-  "/": "pages/index.js"
-}
+{"/_app":"pages/_app.js","/api/generateText":"pages/api/generateText.js","/api/moreincommon/categories":"pages/api/moreincommon/categories.js","/_error":"pages/_error.js","/":"pages/index.html","/api/mosaic/categories":"pages/api/mosaic/categories.js","/api/valuemodes/categories":"pages/api/valuemodes/categories.js","/api/mosaic/subcategories":"pages/api/mosaic/subcategories.js","/_document":"pages/_document.js","/404":"pages/404.html"}
