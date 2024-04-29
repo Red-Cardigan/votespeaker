@@ -55,7 +55,6 @@ body {
   font-size: small;
   cursor: pointer;
   text-decoration: underline;
-  align: block;
 }
 
 .policy-popup {
@@ -421,8 +420,14 @@ input:checked + .slider:before {
   background-color: #63a4ff; /* Lighter blue for selected tones */
 }
 
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
 .submit-button {
-  width: 40%;
+  width: 48%;
   margin-top: 10px;
   margin-bottom: 0;
   font-size: 20px;
@@ -437,7 +442,28 @@ input:checked + .slider:before {
   opacity: 1;
 }
 
-.button {
+.download-button {
+  background-color:#932e35
+}
+
+.submit-button .fa-icon, .download-button .fa-icon {
+  margin-right: 5px;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+  cursor: pointer;
+}
+.download-button:hover {
+  background-color: #682125;
+}
+
+.submit-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* .button {
   background-color: #007bff;
   color: white;
   padding: 10px 20px;
@@ -447,18 +473,12 @@ input:checked + .slider:before {
   float: right;
   font-weight: bold;
   opacity: 1;
-}
+} */
 
-.button:hover {
+/* .button:hover {
   background-color: #0056b3;
   cursor: pointer;
-}
-
-.clearfix::after {
-  content: "";
-  clear: both;
-  display: table;
-}
+} */
 
 .response-header {
   margin: 0 auto; /* Adjust top margin as needed, remove left and right margins */
@@ -528,11 +548,11 @@ input:checked + .slider:before {
 }
 .markdown-response {
   font-family: 'Arial', sans-serif;
-  line-height: 1.6;
+  line-height: 1.2;
   color: #333;
 }
 .markdown-response p {
-  margin-bottom: 3px;
+  margin-bottom: 0px;
 }
 
 .response-body {
@@ -569,6 +589,7 @@ input:checked + .slider:before {
   height: auto; /* This will make the height of the span equal to the content */
   vertical-align: top;
   width: fit-content;
+  height: 20%;
 }
 
 @media (max-width: 768px) {

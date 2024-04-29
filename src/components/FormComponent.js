@@ -9,6 +9,9 @@ import NameOccupationLocation from './NameOccupationLocation';
 import StyleArea from './styleArea';
 import placeholders from './placeholders';
 import ReactMarkdown from 'react-markdown';
+import { jsPDF } from 'jspdf';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenFancy, faDownload, faCopy, faCheckDouble } from '@fortawesome/free-solid-svg-icons';
 
 const FormComponent = () => {
   const [colorIndex, setColorIndex] = useState(0);
@@ -20,6 +23,7 @@ const FormComponent = () => {
     { color: '#6AB023', emoji: '🌍', name: 'a Green Party Candidate', partyName: 'Green Party' },     // Green Party: Green, Globe emoji
     { color: '#12B6CF', emoji: '➡️', name: 'a Reform UK Candidate', partyName: 'Reform UK' }       // Reform UK: Light Blue, Right Arrow emoji
   ];
+  const [prompt, setPrompt] = useState("Initial prompt text");
   const [contentType, setContentType] = useState('');
   const [nameOccupationLocation, setNameOccupationLocation] = useState(''); // Updated variable name
   const [voteIntention, setIntention] = useState('');
@@ -33,6 +37,80 @@ const FormComponent = () => {
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const placeholderRef = useRef(null);
 
+  const updatePrompt = () => {
+    const action = voteIntention.includes(partyInfo[colorIndex].partyName) ?
+      "thank them, and encourage them to continue their support for the party by voting for you" :
+      "identify their key concerns and persuade them to support you and your party";
+
+    let newPrompt = `You're the candidate for local ${partyInfo[colorIndex].partyName} MP, writing in the style of ${style}. Write a concise letter ${nameOccupationLocation} ${voteIntention} to ${action} in the upcoming election.\n\nBe ${selectedTones.map(t => t.value).join(', ')}.`;
+
+    if (demographic) {
+      newPrompt += `\n\nTailor your letter to their demographic "${demographic}".`;
+    }
+    if (description) {
+      newPrompt += `\n\nWhere relevant, use policies which align with their values. Policies: ${description}`;
+    }
+
+    setPrompt(newPrompt);
+    console.log(newPrompt);
+  };
+
+  const downloadPdf = async (prompt) => {
+    const doc = new jsPDF();
+  
+    // Define the styles for the PDF
+    doc.setFont('Calibri'); // Set font to Helvetica for simplicity
+    doc.setFontSize(12); // Set the base font size
+  
+    // Define margins and page width
+    const margins = { top: 20, left: 20, bottom: 30 };
+    const pageWidth = doc.internal.pageSize.width - margins.left * 2;
+  
+    // Function to add footer
+    const addFooter = () => {
+      const footerY = doc.internal.pageSize.height - margins.bottom;
+      doc.setDrawColor(255, 0, 0); // Set draw color to red
+      doc.setLineWidth(0.5);
+      doc.line(margins.left, footerY, doc.internal.pageSize.width - margins.left, footerY);
+  
+      const logo = 'public/banner.jpg';
+      doc.addImage(logo, 'JPEG', margins.left, footerY + 3, 30, 15);
+  
+      const linkText = 'Write letters like this at scale';
+      doc.setTextColor(0, 0, 139); // Darker blue
+      const xPositionForLink = doc.internal.pageSize.width - margins.left - doc.getTextWidth(linkText);
+      doc.textWithLink(linkText, xPositionForLink, footerY + 10, { url: 'https://wyza.uk' });
+      doc.setFont('Calibri'); // Reset font style after link
+      doc.setTextColor(0, 0, 0); //Set text to black
+    };
+  
+    // Add header and response text
+    doc.setFontSize(16);
+    doc.text('Your Letter', margins.left, margins.top);
+    doc.setFontSize(12);
+    const wrappedText = doc.splitTextToSize(responseText, pageWidth);
+    doc.text(wrappedText, margins.left, margins.top + 10);
+  
+    // Add footer on the first page
+    addFooter();
+  
+    // Add a new page for the prompt
+    doc.addPage();
+  
+    // Add header and prompt text
+    doc.setFontSize(16);
+    doc.text('Prompt Used to Generate This Letter', margins.left, margins.top);
+    doc.setFontSize(12);
+    const wrappedPrompt = doc.splitTextToSize(prompt, pageWidth);
+    doc.text(wrappedPrompt, margins.left, margins.top + 10);
+  
+    // Add footer on the prompt page
+    addFooter();
+  
+    // Save the PDF
+    doc.save('AI-campaign-letter.pdf');
+  };
+
   useEffect(() => {
     if (isLoading) {
         const interval = setInterval(() => {
@@ -41,6 +119,10 @@ const FormComponent = () => {
         return () => clearInterval(interval);
     }
   }, [isLoading]);  // Dependency on isLoading to start/stop the interval
+
+  useEffect(() => {
+    updatePrompt();
+  }, [partyInfo, colorIndex, nameOccupationLocation, voteIntention, demographic, description, style, selectedTones]); // Add all dependencies that should trigger an update
 
   useEffect(() => {
       if (placeholderRef.current) {
@@ -84,7 +166,6 @@ const FormComponent = () => {
   const handleCopy = () => {
     navigator.clipboard.writeText(responseText);
     setIsCopied(true);
-    setIsLoading(true); // Set isLoading to true
     setTimeout(() => {
       setIsCopied(false);
     }, 3000); // Reset copied status and isLoading after 3 seconds
@@ -94,38 +175,12 @@ const FormComponent = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    const partyName = partyInfo[colorIndex].partyName;
-    const toneKeysSentence = `${selectedTones.map(t => t.key.toLowerCase()).join(', ').replace(/, ([^,]*)$/, ', and $1')}.`;
-    const toneValuesSentence = selectedTones.map(t => t.value).join(' ');
-    const finalSentence = `${toneKeysSentence} ${toneValuesSentence}`;
+    // Call updatePrompt to ensure the prompt state is updated
+    updatePrompt();
 
-    const action = voteIntention.includes(partyName) ?
-    "thank them, and encourage them to continue their support for the party by voting for you" :
-    "identify their key concerns and persuade them to support you and your party";
-
-    const formData = {
-      partyName,
-      contentType,
-      nameOccupationLocation,
-      voteIntention,
-      demographic,
-      description,
-      style,
-      action,
-      tone: finalSentence,
-    };
+    // Now, use the updated prompt state in your submission logic
     try {
-      const detailsSection = formData.description ? `\n\n${formData.description}.` : '';
-      let prompt = `You're the candidate for local ${formData.partyName} MP, writing in the style of ${formData.style}. Write a concise letter ${nameOccupationLocation}${formData.voteIntention} to ${formData.action} in the upcoming election.\n\nBe ${formData.tone}.`;
-      if (demographic) {
-        prompt += `\n\nTailor your letter to their demographic "${formData.demographic}".`;
-      }
-      if (detailsSection) {
-        prompt += `\n\nWhere relevant, use details from your campaign which align with their values. Campaign details:${detailsSection}`;
-      }
-      // Use elements from their broad demographic category "${formData.demographic}" 
-      console.log(prompt)
-      const response = await monitorJobStatus(prompt);
+      const response = await monitorJobStatus(prompt); // Use the updated prompt state
       if (response) {
         setResponseText(response);
       } else {
@@ -161,12 +216,21 @@ const FormComponent = () => {
           </div>
           <AudienceDropdown onDemographicChange={handleDemographicChange} onToneChange={handleToneChange}/>
           <DescriptionTextArea description={description} setDescription={handleDescriptionChange} />
-          <button type="submit" className="submit-button">Write Letter</button>
+          <div className="button-group">
+            <button type="submit" className="submit-button">
+              <FontAwesomeIcon icon={faPenFancy} /> Write Letter
+            </button>
+            <button type="button" className="submit-button download-button" onClick={() => downloadPdf(prompt)} disabled={!responseText}>
+              <FontAwesomeIcon icon={faDownload} /> Download Letter
+            </button>
+          </div>
         </form>
         <div className="response-container">
           <div className={`response-header ${isCopied ? 'copied' : ''}`} onClick={handleCopy}>
             Response
-            <span className="copy-text">{isCopied ? 'Copied' : 'Copy'}</span>
+            <span className="copy-icon">
+              {isCopied ? <FontAwesomeIcon icon={faCheckDouble} /> : <FontAwesomeIcon icon={faCopy} />}
+            </span>
           </div>
           <div className={`response-body ${isLoading ? 'typing-animation' : ''}`}>
             {isLoading ? (
