@@ -122,18 +122,6 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-@keyframes pulseShadow {
-  0% {
-    box-shadow: 0 0 80px rgba(0, 0, 0, 0.2);
-  }
-  50% {
-    box-shadow: 0 0 160px rgba(0, 0, 0, 0.4);
-  }
-  100% {
-    box-shadow: 0 0 80px rgba(0, 0, 0, 0.2);
-  }
-}
-
 .party-name {
   display: block; /* or 'inline', depending on your layout */
   position: absolute;
@@ -175,6 +163,16 @@ body {
   padding: 40px;
   border-radius: 21px;
   margin-bottom: 80px;
+}
+@keyframes pulseShadow {
+  0%, 100% {
+    box-shadow: 0 0 40px 10px rgba(0, 0, 0, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 80px 20px rgba(0, 0, 0, 0.4);
+  }
+}
+.pulse-animation {
   animation: pulseShadow 2s infinite ease-in-out;
 }
 
@@ -501,6 +499,10 @@ input:checked + .slider:before {
   display: flex; /* Use flexbox for vertical alignment */
   align-items: center; /* Align text vertically */
 }
+.copy-button.copied {
+  background-color: #28a745; /* Change to green after being clicked */
+}
+
 
 .response-container {
   display: grid;
@@ -524,21 +526,49 @@ input:checked + .slider:before {
   height: 200px; /* Make it taller when empty */
   justify-content: right;
 }
+.markdown-response {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+.markdown-response p {
+  margin-bottom: 3px;
+}
 
 .response-body {
   justify-content: center;
 }
 
-.placeholder-text {
+.placeholder-text, .typing-animation {
   display: block; /* Ensure it's a block-level element */
   align-items: top;
   padding: 20px;
   color: darkgray;
   height: 100%;
+  font-size: 20px;
+  width: fit-content;
+}
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
 }
 
-.copy-button.copied {
-  background-color: #28a745; /* Change to green after being clicked */
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: inherit; }
+}
+
+.typing-animation span {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid black; 
+  animation: typing 2s steps(var(--char-steps, 30), end), blink-caret 0.75s step-end infinite;
+  box-sizing: border-box;
+  line-height: 0.5; /* Adjust line height to ensure proper vertical alignment and height */
+  height: auto; /* This will make the height of the span equal to the content */
+  vertical-align: top;
+  width: fit-content;
 }
 
 @media (max-width: 768px) {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import ContentTypeDropdown from './ContentTypeDropdown';
 import AudienceDropdown from './AudienceDropdown';
 import DescriptionTextArea from './DescriptionTextArea';
@@ -7,6 +7,8 @@ import ToneTextArea from './ToneSelectArea';
 import VoteIntention from './VoteIntention';
 import NameOccupationLocation from './NameOccupationLocation';
 import StyleArea from './styleArea';
+import placeholders from './placeholders';
+import ReactMarkdown from 'react-markdown';
 
 const FormComponent = () => {
   const [colorIndex, setColorIndex] = useState(0);
@@ -27,6 +29,25 @@ const FormComponent = () => {
   const [responseText, setResponseText] = useState(''); 
   const [isCopied, setIsCopied] = useState(false); 
   const [selectedTones, setSelectedTones] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [placeholderIndex, setPlaceholderIndex] = useState(0);
+  const placeholderRef = useRef(null);
+
+  useEffect(() => {
+    if (isLoading) {
+        const interval = setInterval(() => {
+            setPlaceholderIndex(prevIndex => (prevIndex + 1) % placeholders.length);
+        }, 3000);
+        return () => clearInterval(interval);
+    }
+  }, [isLoading]);  // Dependency on isLoading to start/stop the interval
+
+  useEffect(() => {
+      if (placeholderRef.current) {
+          const textLength = placeholderRef.current.textContent.length;
+          placeholderRef.current.style.setProperty('--char-steps', textLength);
+      }
+  }, [placeholderIndex, placeholders]);
 
   const handleHeaderClick = () => {
     setColorIndex(prevIndex => (prevIndex + 1) % partyInfo.length); // Cycle through party info
@@ -63,11 +84,15 @@ const FormComponent = () => {
   const handleCopy = () => {
     navigator.clipboard.writeText(responseText);
     setIsCopied(true);
-    setTimeout(() => setIsCopied(false), 3000); // Reset copied status after 3 seconds
+    setIsLoading(true); // Set isLoading to true
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 3000); // Reset copied status and isLoading after 3 seconds
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     const partyName = partyInfo[colorIndex].partyName;
     const toneKeysSentence = `${selectedTones.map(t => t.key.toLowerCase()).join(', ').replace(/, ([^,]*)$/, ', and $1')}.`;
@@ -91,7 +116,7 @@ const FormComponent = () => {
     };
     try {
       const detailsSection = formData.description ? `\n\n${formData.description}.` : '';
-      let prompt = `You're the candidate for local ${formData.partyName} MP, writing in the style of ${formData.style}. Write a concise letter ${nameOccupationLocation}${formData.voteIntention} to ${formData.action} in the upcoming election.\n\nBe ${formData.tone}`;
+      let prompt = `You're the candidate for local ${formData.partyName} MP, writing in the style of ${formData.style}. Write a concise letter ${nameOccupationLocation}${formData.voteIntention} to ${formData.action} in the upcoming election.\n\nBe ${formData.tone}.`;
       if (detailsSection) {
         prompt += `\n\nWhere relevant, use details from your campaign which align with their values. Campaign details:${detailsSection}`;
       }
@@ -101,16 +126,19 @@ const FormComponent = () => {
       if (response.generatedText) {
         setResponseText(response.generatedText.trim()); // Update the state with the response
       } else {
+        setResponseText(f`No response - try again: ${Error}`);
         throw new Error('Invalid response from the server');
       }
     } catch (error) {
       console.error('Error submitting form:', error);
       alert('Failed to submit form.');
+    } finally {
+      setIsLoading(false); // Set isLoading to false after a short delay
     }
   };
 
   return (
-    <div className="container">
+    <div className={`container ${isLoading ? 'pulse-animation' : ''}`}>
       <div
         className="container-header"
         onClick={handleHeaderClick}
@@ -138,8 +166,12 @@ const FormComponent = () => {
             Response
             <span className="copy-text">{isCopied ? 'Copied' : 'Copy'}</span>
           </div>
-          <div className="response-body">
-            {responseText || <span className="placeholder-text">Your personalised letter will appear here...</span>}
+          <div className={`response-body ${isLoading ? 'typing-animation' : ''}`}>
+            {isLoading ? (
+              <span key={placeholderIndex} ref={placeholderRef} className="placeholder-text">{placeholders[placeholderIndex]}</span>
+            ) : (
+              <ReactMarkdown className="markdown-response">{responseText || "Your personalized letter will appear here..."}</ReactMarkdown>
+            )}
           </div>
         </div>
       </div>

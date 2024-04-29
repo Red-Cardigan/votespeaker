@@ -1,4 +1,3 @@
-import { Pool } from 'pg';
 import OpenAI from 'openai';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
