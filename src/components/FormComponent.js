@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import ContentTypeDropdown from './ContentTypeDropdown';
 import AudienceDropdown from './AudienceDropdown';
 import DescriptionTextArea from './DescriptionTextArea';
-import handleFormSubmission from '../apiHandler';
+import { handleFormSubmission, monitorJobStatus, checkJobStatus } from '../apiHandler';
 import ToneTextArea from './ToneSelectArea';
 import VoteIntention from './VoteIntention';
 import NameOccupationLocation from './NameOccupationLocation';
@@ -125,12 +125,11 @@ const FormComponent = () => {
       }
       // Use elements from their broad demographic category "${formData.demographic}" 
       console.log(prompt)
-      const response = await handleFormSubmission(prompt);
-      if (response.generatedText) {
-        setResponseText(response.generatedText.trim()); // Update the state with the response
+      const response = await monitorJobStatus(prompt);
+      if (response) {
+        setResponseText(response);
       } else {
-        setResponseText(f`No response - try again: ${Error}`);
-        throw new Error('Invalid response from the server');
+        throw new Error('No response received from the server.');
       }
     } catch (error) {
       console.error('Error submitting form:', error);
