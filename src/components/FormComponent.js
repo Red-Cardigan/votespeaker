@@ -236,7 +236,7 @@ const FormComponent = () => {
             {isLoading ? (
               <span key={placeholderIndex} ref={placeholderRef} className="placeholder-text">{placeholders[placeholderIndex]}</span>
             ) : (
-              <ReactMarkdown className="markdown-response">{responseText || "Your personalized letter will appear here..."}</ReactMarkdown>
+              <ReactMarkdown className="markdown-response">{responseText || "Your personalised letter will appear here..."}</ReactMarkdown>
             )}
           </div>
         </div>

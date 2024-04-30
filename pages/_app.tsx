@@ -44,7 +44,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <FormComponent />
       </main>
       <footer className="page-footer">
-        <div>Can I use my own database to write personalised letters to thousands of constituents?</div>   
+        <div>Can I use my own database to write personalised letters like this to thousands of constituents?</div>   
         <div><a href="https://www.wyza.uk/"> Yes. Find Out More</a></div>
       </footer>
     </div>

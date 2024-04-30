@@ -10,7 +10,6 @@ const StyleArea = ({ style, setStyle }) => {
     { label: 'Tony Blair', value: 'tony_blair' },
     { label: 'David Attenborough', value: 'david_attenborough' },
     { label: 'Sir Trevor McDonald', value: 'sir_trevor_mcdonald' },
-    // Add more predefined styles as needed
   ];
 
   const handleStyleChange = (e) => {
