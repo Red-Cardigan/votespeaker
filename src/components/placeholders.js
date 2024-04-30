@@ -1,5 +1,5 @@
 const placeholders = [
-    `Writing your response...`,         // Default loading message
+    `Writing your letter...`,         // Default loading message
     `Establishing a firm base...`,  // Yet another context-specific message
     `Asking the AI for help...`,
     `Being seen by the community...`,  // Long operation message
