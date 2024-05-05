@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 function VoteIntention({ onIntentionChange }) {
   const [voterIntention, setVoterIntention] = useState('');
-  const [intentionScale, setIntentionScale] = useState('');
+  const [intentionScale, setIntentionScale] = useState(5);
 
   const showSecondDropdown = voterIntention !== 'WontSay' && voterIntention !== 'Undecided';
 
@@ -21,13 +21,10 @@ function VoteIntention({ onIntentionChange }) {
   };
 
   useEffect(() => {
-    // Select the confidence word based on the intentionScale
-    const confidenceWord = intentionScale ? confidenceWords[intentionScale] : '';
-    // Format the intention string with the confidence word
+    const confidenceWord = confidenceWords[intentionScale];
     const intentionString = voterIntention && confidenceWord
       ? `, who intends to vote ${voterIntention} with confidence: ${confidenceWord}`
       : '';
-    // Call the callback function with the formatted intention string
     onIntentionChange(intentionString);
   }, [voterIntention, intentionScale, onIntentionChange]);
 
@@ -41,9 +38,8 @@ function VoteIntention({ onIntentionChange }) {
           className="intention-dropdown"
           onChange={(e) => {
             setVoterIntention(e.target.value);
-            // Reset the intention scale if hiding the second dropdown
             if (e.target.value === 'WontSay' || e.target.value === 'Undecided') {
-              setIntentionScale('');
+              setIntentionScale(5);
             }
           }}
         >
@@ -57,24 +53,19 @@ function VoteIntention({ onIntentionChange }) {
           <option value="WontSay">Won't Say</option>
         </select>
 
-        {/* Scale 1-10 Dropdown */}
         {showSecondDropdown && (
           <div className="intentionScale">
-            <label htmlFor="intentionScale">Scale (/10):</label>
-            <select
-              id="intentionScale"
-              className="intention-dropdown"
-              value={intentionScale}
-              onChange={(e) => setIntentionScale(e.target.value)}
-            >
-              <option value="">-</option>
-              {[...Array(10).keys()].map((number) => (
-                <option key={number + 1} value={number + 1}>
-                  {number + 1}
-                </option>
-              ))}
-            </select>
-          </div>
+          <label htmlFor="intentionScale">Confidence Scale (1-10):</label>
+          <input
+            type="range"
+            id="intentionScale"
+            className="intention-slider"
+            min="1"
+            max="10"
+            value={intentionScale}
+            onChange={(e) => setIntentionScale(e.target.value)}
+          />
+        </div>
         )}
       </div>
     </div>

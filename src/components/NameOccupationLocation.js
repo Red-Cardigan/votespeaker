@@ -60,7 +60,7 @@ function NameOccupationLocation({ onNameOccupationLocationChange }) {
         />
       </div> */}
       <div className="form-group">
-        <label htmlFor="location">From: </label>
+        <label htmlFor="location">Location: </label>
         <input
           type="text"
           id="location"

@@ -109,6 +109,7 @@ body {
   margin-top: 8px; /* Space above the description text */
   text-align: left;
   width: 100%;
+  background-color: #ffffff;
   color: black; /* Text color */
   padding: 10px;
   margin: 10px 10px 10px 0; /* Add right margin to create space between dropdowns */
@@ -121,23 +122,10 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.party-name {
-  display: block; /* or 'inline', depending on your layout */
-  position: absolute;
-  top: 30px; /* Adjust as needed */
-  left: 40px;
-  font-size: 0.7em;
-  font-style: italic;
-  color: white;
-  transform: translateY(-30%); /* Vertically center */
-}
-
 .container-header {
-  margin: -40px -40px 20px -40px;
+  margin: -40px -40px 40px -40px;
   padding: 20px; 
-  padding-top: 50px;
-  padding-left: 40px;
-  background-color: #c7122a; /* Adjust the background color as needed */
+  padding-top: 20px;
   color: white; /* Text color */
   display: flex;
   border-top-left-radius: 18px; /* Match the border-radius of .container */
@@ -147,6 +135,37 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   cursor: pointer; 
   position: relative;
+}
+
+.party-names {
+  display: flex; /* Ensures that child elements (party-name) are in a row */
+  justify-content: center; /* Centers the party-name elements horizontally */
+  align-items: center; /* Aligns the party-name elements vertically */
+  flex-wrap: wrap; /* Allows elements to wrap onto the next line if needed */
+}
+
+.party-name {
+  background-color: var(--party-color, #ccc); /* Default background color */
+  cursor: pointer;
+  padding: 10px;
+  margin: 5px;
+  display: inline-flex; /* Allows internal divs to align vertically */
+  flex-direction: column; /* Stacks internal divs vertically */
+  align-items: center; /* Centers the content horizontally */
+  justify-content: center; /* Centers the content vertically */
+  border: 2px solid white;
+  border-radius: 5px;
+  text-align: center;
+  color: white;
+  font-size: 16px; /* Adjusts the font size for the text */
+}
+
+.party-name div {
+  margin: 2px 0; /* Adds a small margin between the text and the emoji */
+}
+
+.party-name .emoji {
+  font-size: 24px; /* Larger font size for the emoji */
 }
 
 .response-header {
@@ -258,8 +277,7 @@ h1 {
 }
 
 /* Ensure the container for name, occupation, and location has 100% width */
-.name-occupation-location-container,
-.style-area {
+.name-occupation-location-container {
   width: 100%; /* Set width to 100% to fill its parent */
   flex-wrap: wrap; /* Allow items to wrap onto the next line if needed */
   gap: 10px; /* Space between items */
@@ -267,8 +285,8 @@ h1 {
 }
 
 /* Adjust the width of dropdowns and text areas within the style area */
-.style-area .dropdown,
-.style-area .text-area {
+.dropdown,
+.text-area {
   width: calc(100%); /* Adjust width to leave space for the toggle switch, assuming switch width + margin */
   display: inline-block; /* Allows elements to be inline */
   vertical-align: middle; /* Aligns elements vertically in the middle */
@@ -281,27 +299,31 @@ h1 {
 }
 
 .style-area {
-  margin-left: 10px; /* Adds some space between the dropdown/text-area and the switch */
-}
-/* Adjustments for the style-area and switch positioning */
-.style-area .switch-label {
-  display: block; /* Ensures the label takes up the full width */
-  margin-bottom: 5px; /* Adds some space above the switch */
+  display: flex; /* Use flexbox to align children inline */
+  align-items: center; /* Align vertically at the center */
+  justify-content: space-between; /* Distribute space between elements */
+  padding: 10px; /* Add some padding around the area */
 }
 
-.style-area .switch {
-  display: block; /* Changes the switch to block level, forcing it onto a new line */
-  margin: 0; /* Optionally center the switch */
-  width: 60px; /* Width of the switch */
-  height: 34px; /* Height of the switch */
-  position: relative;
+.style-area .style-select-area {
+  flex-grow: 1; /* Allow the select area to take up available space */
+  margin-right: 10px; /* Add some space between the select area and the switch */
+}
+
+.style-area .switch-label {
+  margin-right: 10px; /* Space before the switch */
+}
+
+.dropdown, .text-area {
+  width: 100%; /* Ensure dropdown/text-area fills the container */
+  max-width: 100%; /* Prevents the text area from being wider than the container */
 }
 
 .switch {
   position: relative;
-  display: inline-block;
   width: 60px;
   height: 34px;
+  margin-left: auto; /* Push the switch to the right */
 }
 
 /* Hide default HTML checkbox */
@@ -309,6 +331,11 @@ h1 {
   opacity: 0;
   width: 0;
   height: 0;
+}
+
+.switch-container {
+  display: flex;
+  align-items: center;
 }
 
 /* The slider */
@@ -385,10 +412,38 @@ input:checked + .slider:before {
 
 #intentionScale {
   display: block;
-  margin-right: 10px; /* Adds some space between the dropdowns if they are inline */
   margin-bottom: 10px;
-  margin-top: 10px;
-  width: 70px; /* Adjust the width to make it narrower than #voteIntention */
+  margin-top: 13px;
+  padding: 0;
+  height: 100%;
+}
+
+.intention-slider {
+  width: 100%; /* Full-width slider */
+  margin: 10px 0; /* Some vertical spacing */
+  -webkit-appearance: none; /* Override default appearance */
+  height: 25px; /* Set the height of the slider */
+  background: #ffffff; /* Background of the track */
+}
+
+.intention-slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Required for custom thumb */
+  appearance: none;
+  width: 25px; /* Width of the thumb */
+  height: 25px; /* Height of the thumb, make it larger for a thicker appearance */
+  background: #ccc; /* Thumb color */
+  cursor: pointer; /* Cursor on hover */
+  border-radius: 50%; /* Circular thumb */
+}
+
+.intention-slider::-moz-range-thumb {
+  width: 25px; /* Width of the thumb */
+  height: 25px; /* Height of the thumb */
+  cursor: pointer; /* Cursor on hover */
+  border-radius: 50%; /* Circular thumb */
+}
+.intention-slider::-webkit-slider-thumb:hover {
+  background: #9d9d9d; /* Thumb color */
 }
 
 .tone-label {
@@ -440,6 +495,8 @@ input:checked + .slider:before {
   cursor: pointer;
   float: left; /* Aligns the button to the left */
   opacity: 1;
+  background-color: var(--button-color); /* Use the variable for the background color */
+  transition: filter 0.3s ease;
 }
 
 .download-button {
@@ -451,8 +508,8 @@ input:checked + .slider:before {
 }
 
 .submit-button:hover {
-  background-color: #0056b3;
   cursor: pointer;
+  filter: brightness(85%);
 }
 .download-button:hover {
   background-color: #682125;

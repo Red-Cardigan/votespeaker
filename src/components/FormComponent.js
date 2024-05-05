@@ -25,6 +25,8 @@ const FormComponent = () => {
   ];
   const [prompt, setPrompt] = useState("Initial prompt text");
   const [contentType, setContentType] = useState('');
+  const [candidateName, setCandidateName] = useState('');
+  const [constituency, setConstituency] = useState('');
   const [nameOccupationLocation, setNameOccupationLocation] = useState(''); // Updated variable name
   const [voteIntention, setIntention] = useState('');
   const [demographic, setAudience] = useState('');
@@ -38,21 +40,32 @@ const FormComponent = () => {
   const placeholderRef = useRef(null);
 
   const updatePrompt = () => {
-    const action = voteIntention.includes(partyInfo[colorIndex].partyName) ?
-      "thank them, and encourage them to continue their support for the party by voting for you" :
-      "identify their key concerns and persuade them to support you and your party";
+    let action;
+    
+    if (description) {
+      action = voteIntention.includes(partyInfo[colorIndex].partyName) ?
+        "thank them, and encourage them to continue their support for the party using the following policies: \n${description}" :
+        "identify their key concerns and persuade them to support you and your party using the following policies: \n${description}";
+    } else {
+      action = voteIntention.includes(partyInfo[colorIndex].partyName) ?
+        "thank them, and encourage them to continue their support for the party" :
+        "identify their key concerns and persuade them to support you and your party";
+    }
 
-    let newPrompt = `You're the candidate for local ${partyInfo[colorIndex].partyName} MP, writing in the style of ${style}. Write a concise letter ${nameOccupationLocation} ${voteIntention} to ${action} in the upcoming election.\n\nBe ${selectedTones.map(t => t.value).join(', ')}.`;
+    let newPrompt = `
+    You're ${candidateName}, the candidate for local ${partyInfo[colorIndex].partyName} MP in ${constituency}, writing to a voter in the style of ${style}. 
+    Write a concise letter ${nameOccupationLocation} ${voteIntention} to ${action} in the upcoming election.
+    `
+
+    if (selectedTones.length > 0) {
+      newPrompt += `\n\nBe ${selectedTones.map(t => t.value).join(', ')}.`;
+    }
 
     if (demographic) {
       newPrompt += `\n\nTailor your letter to their demographic "${demographic}".`;
     }
-    if (description) {
-      newPrompt += `\n\nWhere relevant, use policies which align with their values. Policies: ${description}`;
-    }
 
     setPrompt(newPrompt);
-    console.log(newPrompt);
   };
 
   const downloadPdf = async (prompt) => {
@@ -177,6 +190,7 @@ const FormComponent = () => {
 
     // Call updatePrompt to ensure the prompt state is updated
     updatePrompt();
+    console.log(prompt)
 
     // Now, use the updated prompt state in your submission logic
     try {
@@ -196,28 +210,53 @@ const FormComponent = () => {
 
   return (
     <div className={`container ${isLoading ? 'pulse-animation' : ''}`}>
-      <div
-        className="container-header"
-        onClick={handleHeaderClick}
-        style={{ backgroundColor: partyInfo[colorIndex].color }} // Set the background color
-      >
-        Dear...
-        <div className="party-name">I am {partyInfo[colorIndex].name} {partyInfo[colorIndex].emoji} </div>
+      <div className="container-header" style={{ backgroundColor: partyInfo[colorIndex].color }}>
+        <div>
+          <h2>Your Information</h2>
+          <label>
+            Name:
+            <input className="text-input" value={candidateName} onChange={e => setCandidateName(e.target.value)} />
+          </label>
+          <label>
+            Constituency:
+            <input className="text-input" value={constituency} onChange={e => setConstituency(e.target.value)} />
+          </label>
+        </div>
+        <div className="party-names">
+          {partyInfo.map((party, index) => (
+            <div
+              key={party.partyName}
+              className="party-name"
+              onClick={() => setColorIndex(index)}
+              style={{ backgroundColor: party.color }}
+            >
+              <div>I am a</div>
+              <div className="emoji">{party.emoji}</div>
+              <div>candidate</div>
+            </div>
+          ))}
+        </div>
       </div>
+      
       <div className="subcontainer">
         <form onSubmit={handleSubmit}>
           {/* <ContentTypeDropdown onContentTypeChange={handleContentTypeChange} /> */}
+          Your voter's information:
           <div className="personal-details">
             <div className="form-row">
               <NameOccupationLocation onNameOccupationLocationChange={handleNameOccupationLocationChange} />
               <VoteIntention onIntentionChange={handleIntentionChange}/>
-              <StyleArea style={style} setStyle={setStyleText} />
             </div>
           </div>
+          <StyleArea style={style} setStyle={setStyleText} />
           <AudienceDropdown onDemographicChange={handleDemographicChange} onToneChange={handleToneChange}/>
           <DescriptionTextArea description={description} setDescription={handleDescriptionChange} />
-          <div className="button-group">
-            <button type="submit" className="submit-button">
+          <div className={`button-group ${isLoading ? 'pulse-animation' : ''}`}>
+            <button
+              type="submit"
+              className="submit-button"
+              style={{ '--button-color': partyInfo[colorIndex].color }}
+            >
               <FontAwesomeIcon icon={faPenFancy} /> Write Letter
             </button>
             <button type="button" className="submit-button download-button" onClick={() => downloadPdf(prompt)} disabled={!responseText}>

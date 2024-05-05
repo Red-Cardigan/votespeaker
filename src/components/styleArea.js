@@ -34,35 +34,32 @@ const StyleArea = ({ style, setStyle }) => {
   };
 
   return (
-    <div className="style-area style-select-area">
-      <div>
-        <label htmlFor="style-select">Use this style:</label>
-      </div>
+  <div className="style-area">
+    <div className="style-select-area">
+      <label htmlFor="style-select">Use this style:</label>
       {inputMethod === 'dropdown' ? (
-        <>
-            <select
-              id="style-select" // Added id to associate with the label
-              className="dropdown"
-              value={style}
-              onChange={handleStyleChange}
-            >
-              {predefinedStyles.map((option) => (
-                <option key={option.value} value={option.label}>{option.label}</option>
-              ))}
-            </select>
-        </>
+        <select
+          id="style-select"
+          className="dropdown"
+          value={style}
+          onChange={handleStyleChange}
+        >
+          {predefinedStyles.map((option) => (
+            <option key={option.value} value={option.label}>{option.label}</option>
+          ))}
+        </select>
       ) : (
-        <>
-          <textarea
-            className="text-area"
-            value={style}
-            onChange={handleStyleChange}
-            rows="4"
-            placeholder="Add a style"
-          ></textarea>
-        </>
+        <textarea
+          className="text-area"
+          value={style}
+          onChange={handleStyleChange}
+          rows="4"
+          placeholder="Add a style"
+        ></textarea>
       )}
-      <div className="switch-label">Add your own style:</div>
+    </div>
+    <div className="switch-container">
+      <span className="switch-label">Add your own style:</span>
       <label className="switch">
         <input
           type="checkbox"
@@ -72,7 +69,8 @@ const StyleArea = ({ style, setStyle }) => {
         <span className="slider round"></span>
       </label>
     </div>
-  );
+  </div>
+);
 };
 
 export default StyleArea;
