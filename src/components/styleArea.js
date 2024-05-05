@@ -54,12 +54,11 @@ const StyleArea = ({ style, setStyle }) => {
           value={style}
           onChange={handleStyleChange}
           rows="4"
-          placeholder="Add a style"
+          placeholder="Use your own style"
         ></textarea>
       )}
     </div>
     <div className="switch-container">
-      <span className="switch-label">Add your own style:</span>
       <label className="switch">
         <input
           type="checkbox"

@@ -90,7 +90,7 @@ const AudienceDropdown = ({ onDemographicChange, onToneChange }) => {
 
   return (
     <div>
-      <div className="dropdown-container">
+      <div className="dropdown-container audience-dropdown">
         <label htmlFor="demographic-system">Demographic system:</label>
         <select
           id="demographic-system"

@@ -29,10 +29,6 @@ function NameOccupationLocation({ onNameOccupationLocationChange }) {
     setName(e.target.value);
   };
 
-  const handleOccupationChange = (e) => {
-    setOccupation(e.target.value);
-  };
-
   const handleLocationChange = (e) => {
     setLocation(e.target.value);
   };
@@ -46,27 +42,15 @@ function NameOccupationLocation({ onNameOccupationLocationChange }) {
           id="name"
           value={name}
           onChange={handleNameChange}
-          className="text-input name-input" // Added specific class for name input
+          className="text-input" // Added specific class for name input
         />
-      </div>
-      {/* <div className="form-group">
-        <label htmlFor="occupation">Occupation: </label>
-        <input
-          type="text"
-          id="occupation"
-          value={occupation}
-          onChange={handleOccupationChange}
-          className="text-input occupation-input" // Added specific class for occupation input
-        />
-      </div> */}
-      <div className="form-group">
         <label htmlFor="location">Location: </label>
         <input
           type="text"
           id="location"
           value={location}
           onChange={handleLocationChange}
-          className="text-input location-input" // Added specific class for location input
+          className="text-input" // Added specific class for location input
         />
       </div>
     </div>

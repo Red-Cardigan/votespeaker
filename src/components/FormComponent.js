@@ -247,9 +247,12 @@ const FormComponent = () => {
               <NameOccupationLocation onNameOccupationLocationChange={handleNameOccupationLocationChange} />
               <VoteIntention onIntentionChange={handleIntentionChange}/>
             </div>
+            <div>
+              <AudienceDropdown onDemographicChange={handleDemographicChange} onToneChange={handleToneChange}/>
+            </div>
           </div>
+          {/* <AudienceDropdown onDemographicChange={handleDemographicChange} onToneChange={handleToneChange}/> */}
           <StyleArea style={style} setStyle={setStyleText} />
-          <AudienceDropdown onDemographicChange={handleDemographicChange} onToneChange={handleToneChange}/>
           <DescriptionTextArea description={description} setDescription={handleDescriptionChange} />
           <div className={`button-group ${isLoading ? 'pulse-animation' : ''}`}>
             <button
