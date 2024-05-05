@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
-const StyleArea = ({ style, setStyle }) => {
-  const [inputMethod, setInputMethod] = useState('dropdown'); // 'dropdown' or 'freeText'
+const StyleArea = ({ style, setStyle, color }) => {
+  const [inputMethod, setInputMethod] = useState('buttons'); // 'buttons' or 'freeText'
+  const [customStyle, setCustomStyle] = useState(''); // Separate state for custom style
 
   const predefinedStyles = [
-    { label: 'None', value: '' },
     { label: 'Nigel Farage', value: 'nigel_farage' },
     { label: 'Boris Johnson', value: 'boris_johnson' },
     { label: 'Tony Blair', value: 'tony_blair' },
@@ -12,64 +12,47 @@ const StyleArea = ({ style, setStyle }) => {
     { label: 'Sir Trevor McDonald', value: 'sir_trevor_mcdonald' },
   ];
 
-  const handleStyleChange = (e) => {
-    if (inputMethod === 'dropdown') {
-      // For dropdown, use the selected option's text as the style
-      const selectedText = e.target.options[e.target.selectedIndex].text;
-      setStyle(selectedText);
-    } else {
-      // For freeText, the value is directly used
-      setStyle(e.target.value);
-    }
+  const handleStyleSelect = (selectedStyle) => {
+    setStyle(selectedStyle);
+    setInputMethod('buttons');
+    setCustomStyle(''); // Clear custom style when a button is selected
   };
 
-  const toggleInputMethod = () => {
-    if (inputMethod === 'dropdown') {
-      setInputMethod('freeText');
-      setStyle(''); // Reset the style value when switching to free text
-    } else {
-      setInputMethod('dropdown');
-      // Optionally, you can set a default style when switching back to dropdown
-    }
+  const handleCustomStyleChange = (e) => {
+    setCustomStyle(e.target.value);
+    setStyle(''); // Clear predefined style selection
+    setInputMethod('freeText');
+  };
+
+  const handleTextAreaFocus = () => {
+    setInputMethod('freeText');
+    setStyle(''); // Clear any selected style when text area is focused
   };
 
   return (
-  <div className="style-area">
-    <div className="style-select-area">
-      <label htmlFor="style-select">Use this style:</label>
-      {inputMethod === 'dropdown' ? (
-        <select
-          id="style-select"
-          className="dropdown"
-          value={style}
-          onChange={handleStyleChange}
-        >
-          {predefinedStyles.map((option) => (
-            <option key={option.value} value={option.label}>{option.label}</option>
-          ))}
-        </select>
-      ) : (
+    <div className="style-area">
+      <div className="style-select-area">
+        {predefinedStyles.map((option) => (
+          <button
+            key={option.value}
+            type="button"
+            onClick={() => handleStyleSelect(option.label)}
+            className={`style-button ${style === option.label ? 'active' : ''}`}
+            style={{ backgroundColor: style === option.label ? color : '#fff' }} // Apply dynamic color
+          >
+            {option.label}
+          </button>
+        ))}
         <textarea
-          className="text-area"
-          value={style}
-          onChange={handleStyleChange}
-          rows="4"
+          className="style-text-area"
+          value={customStyle}
+          onChange={handleCustomStyleChange}
+          onFocus={handleTextAreaFocus} // Handle focus to switch input method and clear style
           placeholder="Use your own style"
         ></textarea>
-      )}
+      </div>
     </div>
-    <div className="switch-container">
-      <label className="switch">
-        <input
-          type="checkbox"
-          checked={inputMethod === 'freeText'}
-          onChange={toggleInputMethod}
-        />
-        <span className="slider round"></span>
-      </label>
-    </div>
-  </div>
-);
+  );
 };
 
 export default StyleArea;

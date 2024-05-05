@@ -9,7 +9,6 @@ const DescriptionTextArea = ({ description, setDescription }) => {
 
   return (
     <div className="description-text-area">
-      <label htmlFor="description">Include details on your policies:</label>
       <textarea
         id="description"
         name="description"

@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-function VoteIntention({ onIntentionChange }) {
+function VoteIntention({ onIntentionChange, color }) {
   const [voterIntention, setVoterIntention] = useState('');
   const [intentionScale, setIntentionScale] = useState(5);
 
   const showSecondDropdown = voterIntention !== 'WontSay' && voterIntention !== 'Undecided';
 
-  // Mapping scale values to confidence words
   const confidenceWords = {
     1: 'very uncertain',
     2: 'mostly uncertain',
@@ -30,8 +29,18 @@ function VoteIntention({ onIntentionChange }) {
 
   return (
     <div>
+      <style>
+        {`
+          .intention-slider::-webkit-slider-thumb {
+            background: ${color};
+          }
+          .intention-slider::-moz-range-thumb {
+            background: ${color};
+          }
+        `}
+      </style>
       <div className="form-group">
-        <label htmlFor="voterIntention">Their Vote Intention:</label>
+        <label htmlFor="voterIntention">Vote Intention:</label>
         <select
           id="voteIntention"
           value={voterIntention}
@@ -55,20 +64,26 @@ function VoteIntention({ onIntentionChange }) {
 
         {showSecondDropdown && (
           <div className="intentionScale">
-          <label htmlFor="intentionScale">Confidence Scale (1-10):</label>
-          <input
-            type="range"
-            id="intentionScale"
-            className="intention-slider"
-            min="1"
-            max="10"
-            value={intentionScale}
-            onChange={(e) => setIntentionScale(e.target.value)}
-          />
-        </div>
+            <label htmlFor="intentionScale">Confidence Scale (1-10):</label>
+            <input
+              type="range"
+              id="intentionScale"
+              className="intention-slider"
+              min="1"
+              max="10"
+              value={intentionScale}
+              onChange={(e) => setIntentionScale(e.target.value)}
+            />
+            <div className="tick-marks">
+              {[...Array(10)].map((_, index) => (
+                <span key={index} style={{ left: `${index * 10.22}%` }}></span>
+              ))}
+            </div>
+          </div>
         )}
       </div>
     </div>
   );
 }
+
 export default VoteIntention;

@@ -241,18 +241,20 @@ const FormComponent = () => {
       <div className="subcontainer">
         <form onSubmit={handleSubmit}>
           {/* <ContentTypeDropdown onContentTypeChange={handleContentTypeChange} /> */}
-          Your voter's information:
+          <h3>Your Voter's Information:</h3>
           <div className="personal-details">
             <div className="form-row">
               <NameOccupationLocation onNameOccupationLocationChange={handleNameOccupationLocationChange} />
-              <VoteIntention onIntentionChange={handleIntentionChange}/>
+              <VoteIntention onIntentionChange={handleIntentionChange} color={partyInfo[colorIndex].color}/>
             </div>
             <div>
               <AudienceDropdown onDemographicChange={handleDemographicChange} onToneChange={handleToneChange}/>
             </div>
           </div>
           {/* <AudienceDropdown onDemographicChange={handleDemographicChange} onToneChange={handleToneChange}/> */}
-          <StyleArea style={style} setStyle={setStyleText} />
+          <h3>Your Letter's Style:</h3>
+          <StyleArea style={style} setStyle={setStyleText} color={partyInfo[colorIndex].color}/>
+          <h3>Your Policy Details:</h3>
           <DescriptionTextArea description={description} setDescription={handleDescriptionChange} />
           <div className={`button-group ${isLoading ? 'pulse-animation' : ''}`}>
             <button

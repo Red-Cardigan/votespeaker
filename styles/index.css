@@ -239,7 +239,7 @@ h1 {
 }
 
 .dropdown:focus, .text-area:focus {
-  outline: 2px solid #17a2b8;
+  outline: 2px solid #cccccc;
 }
 
 .personal-details {
@@ -287,111 +287,54 @@ h1 {
   margin-bottom: 20px; /* Add some space below the container */
 }
 
-/* Adjust the width of dropdowns and text areas within the style area */
-.dropdown,
-.text-area {
-  width: calc(100%); /* Adjust width to leave space for the toggle switch, assuming switch width + margin */
-  display: inline-block; /* Allows elements to be inline */
-  vertical-align: middle; /* Aligns elements vertically in the middle */
-  height: 47px;
-  margin-top: 4px;
-  padding: 10px; /* Consistent padding for all inputs and selects */
-  border: 1px solid #ccc; /* Consistent border for all inputs and selects */
-  border-radius: 12px; /* Consistent border radius for all inputs and selects */
-  box-sizing: border-box; /* Include padding and border in the element's width */
-}
-
 .style-area {
-  display: flex; /* Use flexbox to align children inline */
-  align-items: center; /* Align vertically at the center */
-  justify-content: space-between; /* Distribute space between elements */
-  padding: 10px; /* Add some padding around the area */
+  padding: 20px;
 }
 
-.style-area .style-select-area {
-  flex-grow: 1; /* Allow the select area to take up available space */
-  margin-right: 10px; /* Add some space between the select area and the switch */
+.style-select-area {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-.style-area .switch-label {
-  margin-right: 10px; /* Space before the switch */
-}
-
-.dropdown, .text-area {
-  width: 100%; /* Ensure dropdown/text-area fills the container */
-  max-width: 100%; /* Prevents the text area from being wider than the container */
-}
-
-.switch {
-  position: relative;
-  width: 60px;
-  height: 34px;
-  margin-left: auto; /* Push the switch to the right */
-}
-
-/* Hide default HTML checkbox */
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.switch-container {
-  display: flex;
-  align-items: center;
-}
-
-/* The slider */
-.slider {
-  position: absolute;
+.style-button {
+  padding: 15px;
+  border: 1px solid #ccc;
+  background-color: #fff;
   cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+  transition: background-color 0.2s, transform 0.1s;
+  color: black;
+  border-radius: 12px;
+  font-size: 20px;
+  font-family: 'Roboto', sans-serif;
 }
 
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+.style-button:hover {
+  filter: brightness(85%);
 }
 
-input:checked + .slider {
-  background-color: #2196F3;
+.style-button.active {
+  color: white;
+  transform: scale(1.05);
 }
 
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-
-.submit-button:active {
-  background-color: #0056b3; /* Dark blue color when the button is clicked */
-  animation: darkBluePulse 2s forwards; /* Animation to revert to original blue */
+.style-text-area {
+  border: 1px solid #ccc;
+  background-color: #fff;
+  text-align: center;
+  color: black;
+  padding: 10px 10px 0px 10px; /* Remove vertical padding, adjust horizontal padding */
+  font-size: 20px; /* Match font size with buttons */
+  font-family: 'Roboto', sans-serif;
+  border-radius: 12px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center; /* Flexbox alignment for vertical centering */
+  justify-content: center;
+  overflow: hidden; /* Prevents text from overflowing */
+  resize: none; /* Make textarea not resizable */
 }
 
 .intention-dropdown {
@@ -416,9 +359,23 @@ input:checked + .slider:before {
 #intentionScale {
   display: block;
   margin-bottom: 10px;
-  margin-top: 13px;
+  margin-top: 15px;
   padding: 0;
   height: 100%;
+}
+
+.tick-marks {
+  position: relative;
+  z-index: 1;
+}
+.tick-marks span {
+  position: absolute;
+  height: 10px; /* Height of the tick mark */
+  width: 2px; /* Width of the tick mark */
+  background-color: #ccc; /* Color of the tick mark */
+  bottom: 18px;
+  margin-left: 12px;
+  z-index: 1;
 }
 
 .intention-slider {
@@ -437,6 +394,7 @@ input:checked + .slider:before {
   background: #ccc; /* Thumb color */
   cursor: pointer; /* Cursor on hover */
   border-radius: 50%; /* Circular thumb */
+  z-index: 2;
 }
 
 .intention-slider::-moz-range-thumb {
@@ -444,9 +402,10 @@ input:checked + .slider:before {
   height: 25px; /* Height of the thumb */
   cursor: pointer; /* Cursor on hover */
   border-radius: 50%; /* Circular thumb */
+  z-index: 2;
 }
 .intention-slider::-webkit-slider-thumb:hover {
-  background: #9d9d9d; /* Thumb color */
+  filter: brightness(85%);
 }
 
 .tone-label {
@@ -503,7 +462,7 @@ input:checked + .slider:before {
 }
 
 .download-button {
-  background-color:#932e35
+  background-color: #2a2a2a;
 }
 
 .submit-button .fa-icon, .download-button .fa-icon {
@@ -515,7 +474,7 @@ input:checked + .slider:before {
   filter: brightness(85%);
 }
 .download-button:hover {
-  background-color: #682125;
+  background-color: #1a1a1a;
 }
 
 .submit-button:disabled {
