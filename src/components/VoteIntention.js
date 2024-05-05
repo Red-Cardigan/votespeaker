@@ -64,7 +64,7 @@ function VoteIntention({ onIntentionChange, color }) {
 
         {showSecondDropdown && (
           <div className="intentionScale">
-            <label htmlFor="intentionScale">Confidence Scale (1-10):</label>
+            <label htmlFor="intentionScale">Confidence:</label>
             <input
               type="range"
               id="intentionScale"
