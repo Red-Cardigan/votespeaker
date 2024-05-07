@@ -211,7 +211,7 @@ const FormComponent = () => {
   return (
     <div className={`container ${isLoading ? 'pulse-animation' : ''}`}>
       <div className="container-header" style={{ backgroundColor: partyInfo[colorIndex].color }}>
-        <div>
+        <div className="personal-details">
           <h2>Your Information</h2>
           <label>
             Name:
@@ -242,7 +242,7 @@ const FormComponent = () => {
         <form onSubmit={handleSubmit}>
           {/* <ContentTypeDropdown onContentTypeChange={handleContentTypeChange} /> */}
           <h3>Your Voter's Information:</h3>
-          <div className="personal-details">
+          <div className="voter-details">
             <div className="form-row">
               <NameOccupationLocation onNameOccupationLocationChange={handleNameOccupationLocationChange} />
               <VoteIntention onIntentionChange={handleIntentionChange} color={partyInfo[colorIndex].color}/>
@@ -280,7 +280,7 @@ const FormComponent = () => {
             {isLoading ? (
               <span key={placeholderIndex} ref={placeholderRef} className="placeholder-text">{placeholders[placeholderIndex]}</span>
             ) : (
-              <ReactMarkdown className="markdown-response">{responseText || "Your personalised letter will appear here..."}</ReactMarkdown>
+              <ReactMarkdown className="markdown-response">{responseText || "Your voterised letter will appear here..."}</ReactMarkdown>
             )}
           </div>
         </div>

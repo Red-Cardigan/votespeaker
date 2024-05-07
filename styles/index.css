@@ -144,10 +144,13 @@ h1 {
 }
 
 .party-names {
-  display: flex; /* Ensures that child elements (party-name) are in a row */
+  display: grid; /* Changed from flex to grid for better control */
+  grid-template-columns: repeat(3, 1fr); /* 2 columns on mobile */
   justify-content: center; /* Centers the party-name elements horizontally */
   align-items: center; /* Aligns the party-name elements vertically */
-  flex-wrap: wrap; /* Allows elements to wrap onto the next line if needed */
+  gap: 10px; /* Space between grid items */
+  margin-top: 20px; /* Space above the grid */
+  padding: 0px 20px;
 }
 
 .party-name {
@@ -242,7 +245,7 @@ h1 {
   outline: 2px solid #cccccc;
 }
 
-.personal-details {
+.voter-details {
   border: 1px solid #ccc; /* Light grey border */
   border-radius: 8px; /* Rounded corners for a beveled look */
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2); /* Inset shadow for an embedded look */
@@ -618,7 +621,15 @@ h1 {
   .link-container {
     text-align: center; /* Center-align on mobile */
   }
-  .personal-details {
+  .container-header {
+    flex-direction: column;
+    align-items: center;
+  }
+  .party-names {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 20px 0px;
+  }
+  .voter-details {
     flex-direction: column;
     align-items: center; /* Centers the items horizontally */
   }
